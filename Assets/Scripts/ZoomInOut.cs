@@ -46,13 +46,21 @@ public class ZoomInOut : MonoBehaviour
             if (touchesPrevPosDifference > touchesCurPosDifference)
             {
                  //mainCamera.orthographicSize += zoomModifier;
-                worldBase.transform.localScale += new Vector3(zoomModifier, zoomModifier, zoomModifier);
+                worldBase.transform.localScale -= new Vector3(zoomModifier, zoomModifier, zoomModifier);
+                if (worldBase.transform.localScale.x < 0.3f)
+                {
+                    worldBase.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                }
             }
 
             if (touchesPrevPosDifference < touchesCurPosDifference)
             {
                 //mainCamera.orthographicSize -= zoomModifier;
-                worldBase.transform.localScale -= new Vector3(zoomModifier, zoomModifier, zoomModifier);
+                worldBase.transform.localScale += new Vector3(zoomModifier, zoomModifier, zoomModifier);
+                if (worldBase.transform.localScale.x > 2.5f)
+                {
+                    worldBase.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+                }
             }
 
         }
