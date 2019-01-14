@@ -52,7 +52,7 @@ public class ZoomInOut : MonoBehaviour
             if (touchesPrevPosDifference < touchesCurPosDifference)
             {
                 //mainCamera.orthographicSize -= zoomModifier;
-                worldBase.transform.localScale += new Vector3(zoomModifier, zoomModifier, zoomModifier);
+                worldBase.transform.localScale -= new Vector3(zoomModifier, zoomModifier, zoomModifier);
             }
 
         }
