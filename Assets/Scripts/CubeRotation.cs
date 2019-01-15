@@ -27,6 +27,7 @@ public class CubeRotation : MonoBehaviour
     void Update()
     {
         Touch touchInput = Input.GetTouch(0);
+        Debug.Log("touchInput:  "+ touchInput);
         if (Input.touchCount == 1)
         {
             switch (touchInput.phase)
