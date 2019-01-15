@@ -26,21 +26,25 @@ public class CubeRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Touch touchInput = Input.GetTouch(0);
-        Debug.Log("touchInput:  "+ touchInput);
-        if (Input.touchCount == 1)
-        {
-            switch (touchInput.phase)
-            {
-                case TouchPhase.Began:
-                    initialTouchSpace = touchInput.position;
-                    break;
 
-                case TouchPhase.Moved:
-                    deltaTouchSpace = initialTouchSpace - touchInput.position;
-                    initialTouchSpace = touchInput.position;
-                    isTouchActive = true;
-                    break;
+        if (Input.touchCount > 0 )
+        {
+            Touch touchInput = Input.GetTouch(0);
+
+            if (Input.touchCount == 1)
+            {
+                switch (touchInput.phase)
+                {
+                    case TouchPhase.Began:
+                        initialTouchSpace = touchInput.position;
+                        break;
+
+                    case TouchPhase.Moved:
+                        deltaTouchSpace = initialTouchSpace - touchInput.position;
+                        initialTouchSpace = touchInput.position;
+                        isTouchActive = true;
+                        break;
+                }
             }
         }
 
