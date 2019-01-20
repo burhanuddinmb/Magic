@@ -16,6 +16,9 @@ public class CubeRotation : MonoBehaviour
     Vector2 initialTouchSpace;
     Vector2 deltaTouchSpace;
     bool isTouchActive;
+    float startTime;
+
+    public GameObject player;
 
     // Use this for initialization
     void Start()
@@ -36,20 +39,29 @@ public class CubeRotation : MonoBehaviour
                 switch (touchInput.phase)
                 {
                     case TouchPhase.Began:
+                        startTime = Time.time;
                         initialTouchSpace = touchInput.position;
                         break;
 
                     case TouchPhase.Moved:
                         deltaTouchSpace = initialTouchSpace - touchInput.position;
                         initialTouchSpace = touchInput.position;
-                        isTouchActive = true;
                         break;
                 }
+            }
+
+            float timeChange = Time.time - startTime;
+
+            if (timeChange > 0.1f)
+            {
+                isTouchActive = true;
+                player.GetComponent<PlayerController>().StopPlayer();
             }
         }
 
         if (isTouchActive)
         {
+
             isTouchActive = false;
             Resulting_Value_from_Input += deltaTouchSpace.x * Rotation_Speed * Rotation_Friction; //You can also use "Mouse X"
             Quaternion_Rotate_From = transform.rotation;
