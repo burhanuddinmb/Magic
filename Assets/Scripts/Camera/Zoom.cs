@@ -4,64 +4,52 @@ using UnityEngine;
 
 public class Zoom : MonoBehaviour
 {
+    Camera camera;
+    public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
+    public float orthoZoomSpeed = 0.5f;        // The rate of change of the orthographic size in orthographic mode.
 
-    Camera mainCamera;
-
-    float touchesPrevPosDifference, touchesCurPosDifference, zoomModifier;
-
-    Vector2 firstTouchPrevPos, secondTouchPrevPos;
-
-    [SerializeField]
-    float zoomModifierSpeed = 0.1f;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        mainCamera = GetComponent<Camera>();
+        camera = GetComponent<Camera>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Input.touchCount:    " + Input.touchCount);
+        // If there are two touches on the device...
         if (Input.touchCount == 2)
         {
+            // Store both touches.
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
 
-            Touch firstTouch = Input.GetTouch(0);
-            Touch secondTouch = Input.GetTouch(1);
+            // Find the position in the previous frame of each touch.
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
-            firstTouchPrevPos = firstTouch.position - firstTouch.deltaPosition;
-            secondTouchPrevPos = secondTouch.position - secondTouch.deltaPosition;
+            // Find the magnitude of the vector (the distance) between the touches in each frame.
+            float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
-            touchesPrevPosDifference = (firstTouchPrevPos - secondTouchPrevPos).magnitude;
-            touchesCurPosDifference = (firstTouch.position - secondTouch.position).magnitude;
+            // Find the difference in the distances between each frame.
+            float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
-            zoomModifier = (firstTouch.deltaPosition - secondTouch.deltaPosition).magnitude * zoomModifierSpeed;
-            Debug.Log("touchesPrevPosDifference:    " + touchesPrevPosDifference);
-            Debug.Log("touchesCurPosDifference:    " + touchesCurPosDifference);
-            Debug.Log("--------------------------------------------------------------------------------------");
-            if (touchesPrevPosDifference > touchesCurPosDifference)
+            // If the camera is orthographic...
+            if (camera.orthographic)
             {
-                //mainCamera.orthographicSize += zoomModifier;
-                //worldBase.transform.localScale -= new Vector3(zoomModifier, zoomModifier, zoomModifier);
-                //if (worldBase.transform.localScale.x < 0.3f)
-                //{
-                //    worldBase.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                //}
-                mainCamera.transform.position -= mainCamera.transform.forward * 0.2f;
-            }
+                // ... change the orthographic size based on the change in distance between the touches.
+                camera.orthographicSize += deltaMagnitudeDiff * orthoZoomSpeed;
 
-            if (touchesPrevPosDifference < touchesCurPosDifference)
+                // Make sure the orthographic size never drops below zero.
+                camera.orthographicSize = Mathf.Max(camera.orthographicSize, 0.1f);
+            }
+            else
             {
-                //mainCamera.orthographicSize -= zoomModifier;
-                //worldBase.transform.localScale += new Vector3(zoomModifier, zoomModifier, zoomModifier);
-                //if (worldBase.transform.localScale.x > 2.5f)
-                //{
-                //    worldBase.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
-                //}
-                mainCamera.transform.position += mainCamera.transform.forward * 0.2f;
-            }
+                // Otherwise change the field of view based on the change in distance between the touches.
+                camera.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
 
+                // Clamp the field of view to make sure it's between 0 and 180.
+                camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 0.1f, 179.9f);
+            }
         }
     }
 }

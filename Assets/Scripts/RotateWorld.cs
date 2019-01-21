@@ -4,89 +4,81 @@ using UnityEngine;
 
 public class RotateWorld : MonoBehaviour
 {
-    public float minSwipeDistY;
+    public float Rotation_Speed;
+    public float Rotation_Friction;
+    public float Rotation_Smoothness;
 
-    public float minSwipeDistX;
+    private float Resulting_Value_from_Input;
+    private Quaternion Quaternion_Rotate_From;
+    private Quaternion Quaternion_Rotate_To;
 
-    private Vector2 startPos;
 
-    public GameObject Right;
-    public GameObject Left;
+    Vector2 initialTouchSpace;
+    Vector2 deltaTouchSpace;
+    bool isTouchActive;
+    float startTime;
+    bool isObjectSelected;
 
-    public GameObject targetPosition;
+    public GameObject player;
 
-    
+    // Use this for initialization
+    void Start()
+    {
+        isTouchActive = false;
+        isObjectSelected = false;
+    }
 
+    // Update is called once per frame
     void Update()
     {
-
-        WorldRotate();
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.touches[0];
-            switch (touch.phase)
+            Touch touchInput = Input.GetTouch(0);
+
+            if (Input.touchCount == 1)
             {
-                case TouchPhase.Began:
-                    startPos = touch.position;
-                    break;
+                switch (touchInput.phase)
+                {
+                    case TouchPhase.Began:
+                        Ray ray = Camera.main.ScreenPointToRay(touchInput.position);
+                        RaycastHit hit;
+                        if (!Physics.Raycast(ray, out hit, 100.0f))
+                        {
+                            isObjectSelected = true;
+                        }
+                        startTime = Time.time;
+                        initialTouchSpace = touchInput.position;
+                        break;
 
-                case TouchPhase.Ended:
-                    float swipeDistVertical = (new Vector3(0, touch.position.y, 0) - new Vector3(0, startPos.y, 0)).magnitude;
+                    case TouchPhase.Moved:
+                        deltaTouchSpace = initialTouchSpace - touchInput.position;
+                        initialTouchSpace = touchInput.position;
+                        break;
 
-                    if (swipeDistVertical > minSwipeDistY)
-                    {
-                        float swipeValue = Mathf.Sign(touch.position.y - startPos.y);
-                        if (swipeValue > 0)
-                            Rotateleft();
+                    case TouchPhase.Ended:
+                        isObjectSelected = false;
+                        break;
+                }
+            }
+            if (!isTouchActive && isObjectSelected)
+            {
+                float timeChange = Time.time - startTime;
 
-                        else if (swipeValue < 0)
-                            RotateRight();
-                    }
-
-                    float swipeDistHorizontal = (new Vector3(touch.position.x, 0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;
-
-                    if (swipeDistHorizontal > minSwipeDistX)
-                    {
-                        float swipeValue = Mathf.Sign(touch.position.x - startPos.x);
-
-                        //if (swipeValue > 0)//right swipe
-                        //     //MoveRight ();
-
-                        //else if (swipeValue < 0)//left swipe
-                        //     //MoveLeft ();
-                    }
-                    break;
+                if (timeChange > 0.1f)
+                {
+                    isTouchActive = true;
+                    player.GetComponent<PlayerController>().StopPlayer();
                 }
             }
         }
 
-        void Rotateleft()
+        if (isTouchActive && isObjectSelected)
         {
-            Debug.Log("Rotate left");
-            Right.SetActive(true);
-        }
-
-        void RotateRight()
-        {
-            Debug.Log("Rotate right");
-            Left.SetActive(true);
-        }
-
-
-        void WorldRotate()
-        {
-            if(Input.GetMouseButton(0))
-            {
-            //var targetPoint = targetPosition.transform.position;
-            //var targetRotation = Quaternion.LookRotation(targetPoint - transform.position, Vector3.up);
-
-            //Debug.Log("targetRotation:  "+ targetRotation);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2.0f);
-
-
-                
-            }    
-            
-           
+            isTouchActive = false;
+            Resulting_Value_from_Input += deltaTouchSpace.x * Rotation_Speed * Rotation_Friction;
+            Quaternion_Rotate_From = transform.rotation;
+            Quaternion_Rotate_To = Quaternion.Euler(0, Resulting_Value_from_Input, 0);
+            transform.rotation = Quaternion_Rotate_To;
         }
     }
+}

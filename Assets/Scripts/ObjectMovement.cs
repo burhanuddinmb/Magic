@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayCastHandler : MonoBehaviour
+public class ObjectMovement : MonoBehaviour
 {
 
     GameObject selectedObject;
-    [SerializeField] Transform world;
-    [SerializeField] float rotationSpeed;
+    float movementSpeed;
 
-    // Start is called before the first frame update
     void Start()
     {
-        selectedObject = null;
+        movementSpeed = 0.05f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.touchCount == 1)
@@ -27,10 +24,9 @@ public class RayCastHandler : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100.0f))
                 {
-                    selectedObject = hit.transform.parent.gameObject;
-                    if (selectedObject && selectedObject.tag != "InteractableObjects")
+                    if (hit.transform.tag == "VerticalMovers")
                     {
-                        selectedObject = null;
+                        selectedObject = hit.transform.parent.gameObject;
                     }
                 }
             }
@@ -38,11 +34,7 @@ public class RayCastHandler : MonoBehaviour
             {
                 if (selectedObject)
                 {
-                    selectedObject.transform.rotation = Quaternion.Euler(0, touch.deltaPosition.x * rotationSpeed, 0);
-                }
-                else
-                {
-                    world.rotation = Quaternion.Euler(0, touch.deltaPosition.x * rotationSpeed, 0);
+                    selectedObject.transform.position += new Vector3(0, touch.deltaPosition.y * movementSpeed, 0);
                 }
             }
             else if (touch.phase == TouchPhase.Ended)
