@@ -18,6 +18,18 @@ EditorBuildSettings:
     path: Assets/Scenes/SettingsScene.unity
     guid: cf4e07d03cb2ec547886990b521f9c75
   - enabled: 1
+    path: Assets/Scenes/WorldRotationSceneForBuild.unity
+    guid: 65c5afb67fcffb94a96cb690c3a27252
+  - enabled: 1
+    path: Assets/Scenes/FirstLevel1.unity
+    guid: 8ca62e248fd3c8649a0e8010f29a5f93
+  - enabled: 1
+    path: Assets/Scenes/Movement.unity
+    guid: 6d5dcc36fe6e8004ca111c0dd9753dcb
+  - enabled: 1
+    path: Assets/Scenes/SecondLevel.unity
+    guid: 415cfa5f0f40dab4b902a4f9877c5538
+  - enabled: 1
     path: Assets/Scenes/FirstLevel 1.unity
     guid: 8ca62e248fd3c8649a0e8010f29a5f93
   m_configObjects: {}
