@@ -54,8 +54,11 @@ public class CubeRotation : MonoBehaviour
                         break;
 
                     case TouchPhase.Moved:
-                        deltaTouchSpace = initialTouchSpace - touchInput.position;
-                        initialTouchSpace = touchInput.position;
+                        if (isObjectSelected)
+                        {
+                            deltaTouchSpace = initialTouchSpace - touchInput.position;
+                            initialTouchSpace = touchInput.position;
+                        }
                         break;
 
                     case TouchPhase.Ended:

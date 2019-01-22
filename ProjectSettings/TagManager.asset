@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InteractableObjects
   - VerticalMovers
+  - World
   layers:
   - Default
   - TransparentFX

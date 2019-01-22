@@ -42,9 +42,12 @@ public class RotateWorld : MonoBehaviour
                     case TouchPhase.Began:
                         Ray ray = Camera.main.ScreenPointToRay(touchInput.position);
                         RaycastHit hit;
-                        if (!Physics.Raycast(ray, out hit, 100.0f))
+                        if (Physics.Raycast(ray, out hit, 100.0f))
                         {
-                            isObjectSelected = true;
+                            if (hit.transform.tag == "World")
+                            {
+                                isObjectSelected = true;
+                            }
                         }
                         startTime = Time.time;
                         initialTouchSpace = touchInput.position;
