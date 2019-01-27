@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            Debug.Log("yay");
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {

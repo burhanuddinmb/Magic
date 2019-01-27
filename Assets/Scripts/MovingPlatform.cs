@@ -4,57 +4,81 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public Transform[] point;
-    public Transform camera;
-    public float moveSpeed = 3;
-    public int startPoint;
-    public int targetPoint;
-    private bool isReached;
-    float yRotation = -90.0f;
-    bool isRotating;
-    Quaternion rotationGoal;
-    Quaternion currentAngle;
-    float timer;
+    public float thrust;
+    Rigidbody rb;
+    bool isTouchActive;
+    bool isObjectSelected;
+    [SerializeField] bool isVertical;
+    float startTime;
 
+    Vector2 initialTouchSpace;
+    Vector2 deltaTouchSpace;
+
+    Vector3 futurePosition;
+    [SerializeField] GameObject player;
+    
     void Start()
     {
-        currentAngle = transform.rotation;
-        rotationGoal = Quaternion.identity;
-        isRotating = false;
-        isReached = false;
-        transform.position = point[startPoint].position;
-        timer = 0.0f;
+        thrust = 2.0f;
+        rb = transform.GetChild(1).GetComponent<Rigidbody>();
+        rb.useGravity = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (!isReached)
+        if (Input.touchCount == 1)
         {
-            transform.position = Vector3.MoveTowards(transform.position, point[targetPoint].position, moveSpeed * Time.deltaTime);
-
-            if (transform.position == point[targetPoint].position)
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
             {
-                targetPoint++;
-                currentAngle = transform.rotation;
-                rotationGoal = point[targetPoint - 1].rotation;
-                isRotating = true;
-                timer = 0.0f;
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 100.0f))
+                {
+                    if (hit.transform.parent == transform)
+                    {
+                        Debug.Log(hit.transform.name);
+                        isObjectSelected = true;
+                    }
+                }
+                startTime = Time.time;
+                initialTouchSpace = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                if (isObjectSelected)
+                {
+                    deltaTouchSpace = initialTouchSpace - touch.position;
+                    initialTouchSpace = touch.position;
+                }
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                isObjectSelected = false;
+            }
+
+            if (!isTouchActive && isObjectSelected)
+            {
+                float timeChange = Time.time - startTime;
+
+                if (timeChange > 0.1f)
+                {
+                    isTouchActive = true;
+                    player.GetComponent<PlayerController>().StopPlayer();
+                }
             }
         }
-        if (targetPoint == 8)
+
+        if (isTouchActive && isObjectSelected)
         {
-            camera.parent = null;
-        }
-        if (targetPoint == point.Length)
-        {
-            isReached = true;
-            gameObject.SetActive(false);
-        }
-        if (isRotating)
-        {
-            timer += Time.deltaTime * 4.0f;
-            transform.rotation = Quaternion.Slerp(currentAngle, rotationGoal, timer);
-            isRotating = timer < 1.0f;
+            isTouchActive = false;
+            futurePosition = transform.position;
+            futurePosition.y = transform.position.y - (deltaTouchSpace.y * Time.deltaTime * thrust);
+            if (isVertical)
+            {
+                rb.MovePosition(futurePosition);
+
+            }
         }
     }
 }

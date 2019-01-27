@@ -48,7 +48,7 @@ public class Zoom : MonoBehaviour
                 camera.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
 
                 // Clamp the field of view to make sure it's between 0 and 180.
-                camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 0.1f, 179.9f);
+                camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 15.0f, 75.0f);
             }
         }
     }
