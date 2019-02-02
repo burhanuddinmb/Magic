@@ -38,4 +38,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MechanicWorldBuild.unity
     guid: 8087804dd050f3744b3b916764fe03ff
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 5de77841d39357e40ae15579cfc972b0
   m_configObjects: {}
