@@ -74,7 +74,7 @@ public class RotateWorld : MonoBehaviour
                 if (timeChange > 0.1f)
                 {
                     isTouchActive = true;
-                    player.GetComponent<PlayerController>().StopPlayer();
+                   // player.GetComponent<PlayerController>().StopPlayer();
                 }
             }
         }
