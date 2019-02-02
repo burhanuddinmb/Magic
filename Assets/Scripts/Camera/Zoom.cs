@@ -17,9 +17,11 @@ public class Zoom : MonoBehaviour
 
     void Update()
     {
+        
         // If there are two touches on the device...
         if (Input.touchCount == 2)
         {
+            //Debug.Log("Touch to camera zoom");
             // Store both touches.
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);

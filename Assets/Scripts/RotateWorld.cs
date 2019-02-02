@@ -37,6 +37,7 @@ public class RotateWorld : MonoBehaviour
 
             if (Input.touchCount == 1)
             {
+                //Debug.Log("Touch to rotate world");
                 switch (touchInput.phase)
                 {
                     case TouchPhase.Began:
@@ -51,15 +52,18 @@ public class RotateWorld : MonoBehaviour
                         }
                         startTime = Time.time;
                         initialTouchSpace = touchInput.position;
+                       // Debug.Log("TouchPhase.Began");
                         break;
 
                     case TouchPhase.Moved:
                         deltaTouchSpace = initialTouchSpace - touchInput.position;
                         initialTouchSpace = touchInput.position;
+                       // Debug.Log("TouchPhase.Moved");
                         break;
 
                     case TouchPhase.Ended:
                         isObjectSelected = false;
+                        //Debug.Log("TouchPhase.Ended");
                         break;
                 }
             }
