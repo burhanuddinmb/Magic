@@ -28,12 +28,13 @@ public class VerticalBlockWithPhysics : MonoBehaviour
     float eachFrameTimeVariable;
 
     float movementSpeed;
-    float thrust;
+    [SerializeField]
+    private float thrust;
 
     void Start()
     {
-        movementSpeed = 5.0f;
-        thrust = 1.2f;
+        movementSpeed = 2.0f;
+        //thrust = 1.8f;
         isPlayerConnected = false;
         forceToBeAdded = Vector3.zero;
         deselectObject = true;

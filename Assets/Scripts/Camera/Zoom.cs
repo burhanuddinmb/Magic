@@ -5,8 +5,10 @@ using UnityEngine;
 public class Zoom : MonoBehaviour
 {
     public Camera camera;
-    public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
+    //public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
     public float orthoZoomSpeed = 0.5f;        // The rate of change of the orthographic size in orthographic mode.
+    public float maxZoom = 10f; 
+    public float minZoom = 2f;  
 
     private void Start()
     {
@@ -15,9 +17,11 @@ public class Zoom : MonoBehaviour
 
     void Update()
     {
+        
         // If there are two touches on the device...
         if (Input.touchCount == 2)
         {
+            //Debug.Log("Touch to camera zoom");
             // Store both touches.
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);
@@ -34,21 +38,40 @@ public class Zoom : MonoBehaviour
             float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
             // If the camera is orthographic...
+            //if (camera.orthographic)
+            //{
+            //    // ... change the orthographic size based on the change in distance between the touches.
+            //    camera.orthographicSize += deltaMagnitudeDiff * orthoZoomSpeed;
+
+            //    // Make sure the orthographic size never drops below zero.
+            //    camera.orthographicSize = Mathf.Max(22.0f, 5.1f);//camera.orthographicSize
+            //    Debug.Log("camera.orthographicSize:     "+camera.orthographicSize);
+            //}
+            //else
+            //{
+            //    // Otherwise change the field of view based on the change in distance between the touches.
+            //    camera.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
+
+            //    // Clamp the field of view to make sure it's between 0 and 180.
+            //    camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 4.0f, 15.0f);
+            //}
+
             if (camera.orthographic)
             {
-                // ... change the orthographic size based on the change in distance between the touches.
-                camera.orthographicSize += deltaMagnitudeDiff * orthoZoomSpeed;
+                float i = camera.orthographicSize + deltaMagnitudeDiff * orthoZoomSpeed;
 
-                // Make sure the orthographic size never drops below zero.
-                camera.orthographicSize = Mathf.Max(camera.orthographicSize, 0.1f);
-            }
-            else
-            {
-                // Otherwise change the field of view based on the change in distance between the touches.
-                camera.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
-
-                // Clamp the field of view to make sure it's between 0 and 180.
-                camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 15.0f, 75.0f);
+                if (i >= maxZoom)
+                { 
+                    camera.orthographicSize = maxZoom;
+                }
+                else if (i <= minZoom)
+                { 
+                    camera.orthographicSize = minZoom;
+                }
+                else
+                { 
+                    camera.orthographicSize = i;
+                }
             }
         }
     }
