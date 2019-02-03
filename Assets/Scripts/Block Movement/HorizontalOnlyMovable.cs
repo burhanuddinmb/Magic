@@ -13,7 +13,6 @@ public class HorizontalOnlyMovable : MonoBehaviour
     bool isObjectSelected;
     bool isPlayerConnected;
     bool deselectObject;
-    bool resetValues;
 
     [SerializeField] GameObject player;
 
@@ -30,7 +29,6 @@ public class HorizontalOnlyMovable : MonoBehaviour
         movementSpeed = 5.0f;
         isPlayerConnected = false;
         deselectObject = true;
-        resetValues = false;
     }
 
     void Update()
