@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectMovement : MonoBehaviour
+public class VerticalBlockWithPhysics : MonoBehaviour
 {
     Vector3 futurePosition;
     Vector3 frameStartPosition;
@@ -48,8 +48,8 @@ public class ObjectMovement : MonoBehaviour
         {
             isTouchActive = false;
 
-            futurePosition = transform.position;
-            futurePosition.y = transform.position.y - (deltaTouchSpace.y * Time.deltaTime * movementSpeed);
+            futurePosition = transform.localPosition;
+            futurePosition.y = transform.localPosition.y - (deltaTouchSpace.y * Time.deltaTime * movementSpeed);
             futurePosition.y = Mathf.Clamp(futurePosition.y, minY, maxY);
 
             if (resetValues)
@@ -66,7 +66,7 @@ public class ObjectMovement : MonoBehaviour
                 frameStartPosition = futurePosition;
             }
 
-            transform.position = futurePosition;
+            transform.localPosition = futurePosition;
             ApplyForce();
 
             isObjectSelected = !deselectObject;
@@ -92,7 +92,7 @@ public class ObjectMovement : MonoBehaviour
                 startTime = Time.time;
                 eachFrameTimeVariable = startTime;
                 initialTouchSpace = touch.position;
-                frameStartPosition = transform.position;
+                frameStartPosition = transform.localPosition;
                 waitForForce = false;
                 applyForce = false;
                 deselectObject = false;
