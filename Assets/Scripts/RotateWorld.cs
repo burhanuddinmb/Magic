@@ -86,6 +86,7 @@ public class RotateWorld : MonoBehaviour
             Quaternion_Rotate_From = transform.rotation;
             Quaternion_Rotate_To = Quaternion.Euler(0, Resulting_Value_from_Input, 0);
             transform.rotation = Quaternion_Rotate_To;
+            //Debug.Log("transform.rotation:  " + transform.rotation);
         }
     }
 }

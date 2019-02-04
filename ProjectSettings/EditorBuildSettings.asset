@@ -8,36 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 36532fac74e610849a4fd32d1eeb9377
-  - enabled: 0
-    path: Assets/Scenes/CreditsScene.unity
-    guid: 8fa6ce87be3e2d64b9e3f97bfaee49bf
-  - enabled: 0
-    path: Assets/Scenes/FirstLevel.unity
-    guid: aaaec5d8b6d959c46a718db82d86b652
-  - enabled: 0
-    path: Assets/Scenes/SettingsScene.unity
-    guid: cf4e07d03cb2ec547886990b521f9c75
-  - enabled: 0
-    path: Assets/Scenes/WorldRotationSceneForBuild.unity
-    guid: 65c5afb67fcffb94a96cb690c3a27252
-  - enabled: 0
-    path: Assets/Scenes/FirstLevel1.unity
-    guid: 8ca62e248fd3c8649a0e8010f29a5f93
-  - enabled: 0
-    path: Assets/Scenes/Movement.unity
-    guid: 6d5dcc36fe6e8004ca111c0dd9753dcb
   - enabled: 1
-    path: Assets/Scenes/MechanicWorldBuild.unity
-    guid: 8087804dd050f3744b3b916764fe03ff
+    path: Assets/Scenes/FinalLevel3.unity
+    guid: 2ccc200d3e1ce06498602055da90e47e
   - enabled: 1
-    path: Assets/Scenes/SecondLevel.unity
-    guid: 415cfa5f0f40dab4b902a4f9877c5538
-  - enabled: 0
-    path: Assets/Scenes/FirstLevel1.unity
-    guid: 8ca62e248fd3c8649a0e8010f29a5f93
+    path: Assets/Scenes/FinalLevel2.unity
+    guid: c18a1bf9b370114458bddef5b7a32c71
   - enabled: 1
-    path: Assets/Scenes/MechanicWorldBuild.unity
-    guid: 8087804dd050f3744b3b916764fe03ff
+    path: Assets/Scenes/FinalLevel1.unity
+    guid: 84e9604305b8feb4ba845a4c3c9d72aa
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 5de77841d39357e40ae15579cfc972b0
