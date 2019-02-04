@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalOnlyMovable : MonoBehaviour
+public class VerticalOnlyMovable : MonoBehaviour
 {
     Vector3 futurePosition;
 
@@ -16,8 +16,8 @@ public class HorizontalOnlyMovable : MonoBehaviour
 
     [SerializeField] GameObject player;
 
-    [SerializeField] float maxX;
-    [SerializeField] float minX;
+    [SerializeField] float maxY;
+    [SerializeField] float minY;
 
     float startTime;
     float eachFrameTimeVariable;
@@ -41,7 +41,7 @@ public class HorizontalOnlyMovable : MonoBehaviour
 
             futurePosition = transform.localPosition;
             futurePosition.x = transform.localPosition.x - (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
-            futurePosition.x = Mathf.Clamp(futurePosition.x, minX, maxX);
+            futurePosition.x = Mathf.Clamp(futurePosition.x, minY, maxY);
 
             transform.localPosition = futurePosition;
             isObjectSelected = !deselectObject;
