@@ -40,8 +40,8 @@ public class VerticalOnlyMovable : MonoBehaviour
             isTouchActive = false;
 
             futurePosition = transform.localPosition;
-            futurePosition.x = transform.localPosition.x - (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
-            futurePosition.x = Mathf.Clamp(futurePosition.x, minY, maxY);
+            futurePosition.y = transform.localPosition.y - (deltaTouchSpace.y * Time.deltaTime * movementSpeed);
+            futurePosition.y = Mathf.Clamp(futurePosition.y, minY, maxY);
 
             transform.localPosition = futurePosition;
             isObjectSelected = !deselectObject;
@@ -59,7 +59,7 @@ public class VerticalOnlyMovable : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100.0f))
                 {
-                    if (hit.transform.tag == "HorizontalTouchMove" && hit.transform == transform)
+                    if (hit.transform.tag == "VerticalMovers" && hit.transform == transform)
                     {
                         isObjectSelected = true;
                     }
