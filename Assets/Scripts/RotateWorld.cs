@@ -34,7 +34,7 @@ public class RotateWorld : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touchInput = Input.GetTouch(0);
-
+           // Debug.Log("touchInput:      "+ touchInput);
             if (Input.touchCount == 1)
             {
                 //Debug.Log("Touch to rotate world");
@@ -47,6 +47,7 @@ public class RotateWorld : MonoBehaviour
                         {
                             if (hit.transform.tag == "World")
                             {
+                                Debug.Log("isObjectSelected");
                                 isObjectSelected = true;
                             }
                         }
