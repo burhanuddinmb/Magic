@@ -12,14 +12,11 @@ public class RotateWorld : MonoBehaviour
     private Quaternion Quaternion_Rotate_From;
     private Quaternion Quaternion_Rotate_To;
 
-
     Vector2 initialTouchSpace;
     Vector2 deltaTouchSpace;
     bool isTouchActive;
     float startTime;
     bool isObjectSelected;
-
-    public GameObject player;
 
     // Use this for initialization
     void Start()

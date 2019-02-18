@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
         timer = 0.0f;
         isMoving = false;
-        currentNode = AllNodes.allNodes[0];
+        currentNode = GetComponent<SetPlayerStartingGrid>().startingNode.GetComponent<Node>();
         transform.localPosition = currentNode.transform.localPosition;
     }
 
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
             isMoving = MoveToDestination();
         }
 
-        if (currentNode.tag == "Elevator")
+        if (currentNode.tag == "VerticalMovers" || currentNode.tag == "HorizontalTouchMove")
         {
             transform.localPosition = currentNode.transform.localPosition;
         }
@@ -40,38 +40,43 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckInput()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount == 1)
         {
-            heldDowntimer = Time.time;
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100.0f))
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
             {
-                if (hit.transform.tag == "Nodes" || hit.transform.tag == "Elevator")
+                heldDowntimer = Time.time;
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 100.0f))
                 {
-                    destinationNode = hit.transform.GetComponent<Node>();
+                    if (hit.transform.tag == "Nodes" || hit.transform.tag == "HorizontalTouchMove" || hit.transform.tag == "VerticalMovers")
+                    {
+                        destinationNode = hit.transform.GetComponent<Node>();
+                    }
                 }
             }
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            heldDowntimer = Time.time - heldDowntimer;
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                heldDowntimer = Time.time - heldDowntimer;
 
-            if (heldDowntimer < 0.3f && destinationNode)
-            {
-                pathToDestination = AllNodes.AStar(currentNode, destinationNode);
-                if (pathToDestination.Count > 0)
+                if (heldDowntimer < 0.3f && destinationNode)
                 {
-                    isMoving = true;
+                    pathToDestination = AllNodes.AStar(currentNode, destinationNode);
+                    if (pathToDestination.Count > 0)
+                    {
+                        isMoving = true;
+                    }
                 }
-            }
-            else
-            {
-                destinationNode = null;
+                else
+                {
+                    destinationNode = null;
+                }
             }
         }
     }
+
     bool MoveToDestination()
     {
         timer += Time.deltaTime * movementSpeed;

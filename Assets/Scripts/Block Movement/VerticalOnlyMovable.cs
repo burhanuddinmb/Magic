@@ -11,10 +11,7 @@ public class VerticalOnlyMovable : MonoBehaviour
 
     bool isTouchActive;
     bool isObjectSelected;
-    bool isPlayerConnected;
     bool deselectObject;
-
-    [SerializeField] GameObject player;
 
     [SerializeField] float maxY;
     [SerializeField] float minY;
@@ -24,17 +21,21 @@ public class VerticalOnlyMovable : MonoBehaviour
 
     float movementSpeed;
 
+    Node node;
+    AccessibleNodes accessibleNodes;
+
     void Start()
     {
+        node = GetComponent<Node>();
+        accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 5.0f;
-        isPlayerConnected = false;
         deselectObject = true;
     }
 
     void Update()
     {
         HandleTouch();
-
+        CheckForAccessibleNodes();
         if (isTouchActive && isObjectSelected)
         {
             isTouchActive = false;
@@ -45,6 +46,23 @@ public class VerticalOnlyMovable : MonoBehaviour
 
             transform.localPosition = futurePosition;
             isObjectSelected = !deselectObject;
+        }
+    }
+
+    void CheckForAccessibleNodes()
+    {
+        if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 0.5f)
+        {
+            node.gridY = transform.localPosition.y;
+            foreach (var connectingNode in accessibleNodes.connectingNodes)
+            {
+                connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
+            }
+            accessibleNodes.CalculateConnectingNodes();
+            foreach (var connectingNode in accessibleNodes.connectingNodes)
+            {
+                connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
+            }
         }
     }
 
@@ -89,24 +107,6 @@ public class VerticalOnlyMovable : MonoBehaviour
                     //player.GetComponent<PlayerController>().StopPlayer();
                 }
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            other.transform.parent = transform;
-            isPlayerConnected = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            other.transform.parent = transform.parent;
-            isPlayerConnected = false;
         }
     }
 
