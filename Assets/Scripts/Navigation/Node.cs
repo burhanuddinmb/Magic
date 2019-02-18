@@ -2,28 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+public class Node : MonoBehaviour
 {
-    // node starting params
-    public bool walkable;
+    // Node starting params
+    public bool walkable = true;
     public int gridX;
-    public int gridY;
-    public float penalty;
+    public int gridZ;
 
-    // calculated values while finding path
-    public int gCost;
-    public int hCost;
-    public Node parent;
+    //Height
+    public float gridY;
 
-    public Node(float _price, int _gridX, int _gridY)
+    //For Astar
+    public float gCost;
+    public float hCost;
+    public Node parentNode;
+
+    private void Start()
     {
-        walkable = _price != 0.0f;
-        penalty = _price;
-        gridX = _gridX;
-        gridY = _gridY;
+        gridX = (int)(transform.localPosition.x + 0.5f);
+        gridZ = (int)(transform.localPosition.z + 0.5f);
+        gridY = transform.localPosition.y;
     }
 
-    public int fCost
+    public float fcost
     {
         get
         {

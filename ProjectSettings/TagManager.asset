@@ -8,6 +8,8 @@ TagManager:
   - VerticalMovers
   - World
   - HorizontalTouchMove
+  - MovableArea
+  - Nodes
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - PostProcessing
   - Game
   - World
-  - 
+  - MovableArea
   - 
   - 
   - 
