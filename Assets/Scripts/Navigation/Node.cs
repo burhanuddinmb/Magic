@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Node : MonoBehaviour
 {
@@ -19,9 +20,16 @@ public class Node : MonoBehaviour
 
     private void Start()
     {
-        gridX = (int)(transform.localPosition.x + 0.5f);
-        gridZ = (int)(transform.localPosition.z + 0.5f);
+        gridX = (int)(transform.localPosition.x);
+        gridZ = (int)(transform.localPosition.z);
         gridY = transform.localPosition.y;
+
+        if (SceneManager.GetActiveScene().name == "FinalLevel9")
+        {
+            gridX /= 2;
+            gridY /= 2;
+            gridZ /= 2;
+        }
     }
 
     public float fcost

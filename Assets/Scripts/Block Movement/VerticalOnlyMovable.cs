@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VerticalOnlyMovable : MonoBehaviour
 {
@@ -51,18 +52,31 @@ public class VerticalOnlyMovable : MonoBehaviour
 
     void CheckForAccessibleNodes()
     {
-        if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 0.5f)
+        if (SceneManager.GetActiveScene().name == "FinalLevel9") 
+        {
+            if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 1.0f)
+            {
+                node.gridY = transform.localPosition.y/2;
+                ReAdjustNodes();
+            }
+        }
+        else if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 0.5f)
         {
             node.gridY = transform.localPosition.y;
-            foreach (var connectingNode in accessibleNodes.connectingNodes)
-            {
-                connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
-            }
-            accessibleNodes.CalculateConnectingNodes();
-            foreach (var connectingNode in accessibleNodes.connectingNodes)
-            {
-                connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
-            }
+            ReAdjustNodes();
+        }
+    }
+
+    void ReAdjustNodes()
+    {
+        foreach (var connectingNode in accessibleNodes.connectingNodes)
+        {
+            connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
+        }
+        accessibleNodes.CalculateConnectingNodes();
+        foreach (var connectingNode in accessibleNodes.connectingNodes)
+        {
+            connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
         }
     }
 
