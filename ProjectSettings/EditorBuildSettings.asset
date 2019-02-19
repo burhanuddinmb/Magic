@@ -30,6 +30,12 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalLevel6.unity
     guid: 8259e8ccf02d56d4fb2b67a36fb4b8b8
   - enabled: 1
+    path: Assets/Scenes/Rotation.unity
+    guid: f56ec9f68698de444adea911a5a6df03
+  - enabled: 1
+    path: Assets/Scenes/MechanicWorldBuild/MechanicWorldBuild.unity
+    guid: 8087804dd050f3744b3b916764fe03ff
+  - enabled: 1
     path: Assets/Scenes/FinalLevel7.unity
     guid: 8c19353d9a8028f49a17b585d5679c82
   m_configObjects: {}

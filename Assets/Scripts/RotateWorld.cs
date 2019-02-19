@@ -42,26 +42,22 @@ public class RotateWorld : MonoBehaviour
                         RaycastHit hit;
                         if (Physics.Raycast(ray, out hit, 100.0f))
                         {
-                            if (hit.transform.tag == "World")
+                            if (hit.transform.tag == "Nodes")
                             {
-                                Debug.Log("isObjectSelected");
                                 isObjectSelected = true;
                             }
                         }
                         startTime = Time.time;
                         initialTouchSpace = touchInput.position;
-                       // Debug.Log("TouchPhase.Began");
                         break;
 
                     case TouchPhase.Moved:
                         deltaTouchSpace = initialTouchSpace - touchInput.position;
                         initialTouchSpace = touchInput.position;
-                       // Debug.Log("TouchPhase.Moved");
                         break;
 
                     case TouchPhase.Ended:
                         isObjectSelected = false;
-                        //Debug.Log("TouchPhase.Ended");
                         break;
                 }
             }

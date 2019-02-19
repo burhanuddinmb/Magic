@@ -31,11 +31,11 @@ public class PlayerMovement : MonoBehaviour
         {
             isMoving = MoveToDestination();
         }
-
-        if (currentNode.tag == "VerticalMovers" || currentNode.tag == "HorizontalTouchMove")
-        {
-            transform.localPosition = currentNode.transform.localPosition;
-        }
+            if (currentNode.tag == "VerticalMovers" || currentNode.tag == "HorizontalTouchMove")
+            {
+                transform.localPosition = currentNode.transform.localPosition;
+            }
+                
     }
 
     void CheckInput()
