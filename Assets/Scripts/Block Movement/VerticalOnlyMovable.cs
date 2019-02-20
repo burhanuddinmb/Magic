@@ -55,7 +55,7 @@ public class VerticalOnlyMovable : MonoBehaviour
 
         if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 1.0f)
         {
-            node.gridY = (int)transform.localPosition.y / 2;
+            node.gridY = (int)transform.localPosition.y;
             ReAdjustNodes();
         }
     } 

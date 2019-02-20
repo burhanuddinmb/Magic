@@ -28,8 +28,8 @@ public class Node : MonoBehaviour
         //{
 
         //Accomodating scale
-        gridX = (int)(transform.localPosition.x)/2;
-        gridZ = (int)(transform.localPosition.z)/2;
+        gridX = (int)(transform.localPosition.x);
+        gridZ = (int)(transform.localPosition.z);
 
         gridY = (int)(transform.localPosition.y);
     }
