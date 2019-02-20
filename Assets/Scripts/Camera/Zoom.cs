@@ -8,11 +8,14 @@ public class Zoom : MonoBehaviour
     //public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
     public float orthoZoomSpeed = 0.5f;        // The rate of change of the orthographic size in orthographic mode.
     public float maxZoom = 10f; 
-    public float minZoom = 2f;  
+    public float minZoom = 2f;
+    //public GameObject rink;
 
     private void Start()
     {
         camera = GetComponent<Camera>();
+        //Camera.main.orthographicSize = rink.bounds.size.x * Screen.height / Screen.width * 0.5f;
+       
     }
 
     void Update()
