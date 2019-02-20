@@ -40,9 +40,9 @@ public class Elevator : MonoBehaviour
 
     void CheckForAccessibleNodes()
     {
-        if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 0.5f)
+        if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 1.0f)
         {
-            node.gridY = transform.localPosition.y;
+            node.gridY = (int)transform.localPosition.y/2;
             foreach (var connectingNode in accessibleNodes.connectingNodes)
             {
                 connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();

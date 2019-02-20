@@ -11,7 +11,7 @@ public class Node : MonoBehaviour
     public int gridZ;
 
     //Height
-    public float gridY;
+    public int gridY;
 
     //For Astar
     public float gCost;
@@ -20,16 +20,18 @@ public class Node : MonoBehaviour
 
     private void Start()
     {
-        gridX = (int)(transform.localPosition.x);
-        gridZ = (int)(transform.localPosition.z);
-        gridY = transform.localPosition.y;
+        //gridX = (int)(transform.localPosition.x);
+        //gridZ = (int)(transform.localPosition.z);
+        //gridY = transform.localPosition.y;
 
-        if (SceneManager.GetActiveScene().name == "FinalLevel9")
-        {
-            gridX /= 2;
-            gridY /= 2;
-            gridZ /= 2;
-        }
+        //if (SceneManager.GetActiveScene().name == "FinalLevel9")
+        //{
+
+        //Accomodating scale
+        gridX = (int)(transform.localPosition.x)/2;
+        gridZ = (int)(transform.localPosition.z)/2;
+
+        gridY = (int)(transform.localPosition.y);
     }
 
     public float fcost
