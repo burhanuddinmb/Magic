@@ -50,7 +50,7 @@ public class HorizontalOnlyMovable : MonoBehaviour
 
     void CheckForAccessibleNodes()
     {
-        if (Mathf.Abs(transform.localPosition.x - node.gridX) >= 0.5f)
+        if (Mathf.Abs(transform.localPosition.x - node.gridX) >= 1)
         {
             node.gridX = Mathf.RoundToInt(transform.localPosition.x);
             foreach (var connectingNode in accessibleNodes.connectingNodes)

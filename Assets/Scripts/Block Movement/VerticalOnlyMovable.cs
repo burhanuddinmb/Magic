@@ -52,20 +52,13 @@ public class VerticalOnlyMovable : MonoBehaviour
 
     void CheckForAccessibleNodes()
     {
-        if (SceneManager.GetActiveScene().name == "FinalLevel9") 
+
+        if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 1.0f)
         {
-            if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 1.0f)
-            {
-                node.gridY = transform.localPosition.y/2;
-                ReAdjustNodes();
-            }
-        }
-        else if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 0.5f)
-        {
-            node.gridY = transform.localPosition.y;
+            node.gridY = (int)transform.localPosition.y / 2;
             ReAdjustNodes();
         }
-    }
+    } 
 
     void ReAdjustNodes()
     {

@@ -24,7 +24,7 @@ public class AccessibleNodes : MonoBehaviour
             if (((AllNodes.allNodes[i].gridX == (currentNode.gridX + 1) || AllNodes.allNodes[i].gridX == (currentNode.gridX - 1)) && AllNodes.allNodes[i].gridZ == currentNode.gridZ) ||
                 ((AllNodes.allNodes[i].gridZ == (currentNode.gridZ + 1) || AllNodes.allNodes[i].gridZ == (currentNode.gridZ - 1)) && AllNodes.allNodes[i].gridX == currentNode.gridX))
             {
-                if (Mathf.Abs(AllNodes.allNodes[i].gridY - currentNode.gridY) <= 0.5f)
+                if (Mathf.RoundToInt(Mathf.Abs(AllNodes.allNodes[i].gridY - currentNode.gridY)) <= 1)
                     connectingNodes.Add(AllNodes.allNodes[i]);
             }
         }
