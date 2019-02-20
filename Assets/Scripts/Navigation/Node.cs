@@ -39,4 +39,23 @@ public class Node : MonoBehaviour
             return gCost + hCost;
         }
     }
+
+    public void SetGridX(int xVal)
+    {
+        gridX = xVal;
+    }
+    public int GetGridX()
+    {
+        return gridX;
+    }
+
+    public void SetGridZ(int zVal)
+    {
+        gridY = zVal;
+    }
+
+    public int GetGridZ()
+    {
+        return gridZ;
+    }
 }

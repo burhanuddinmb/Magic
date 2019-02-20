@@ -78,9 +78,46 @@ public class RotateWorld : MonoBehaviour
             isTouchActive = false;
             Resulting_Value_from_Input += deltaTouchSpace.x * Rotation_Speed * Rotation_Friction;
             Quaternion_Rotate_From = transform.rotation;
-            Quaternion_Rotate_To = Quaternion.Euler(0, Resulting_Value_from_Input, 0);
+            Quaternion_Rotate_To = Quaternion.Euler(0, Resulting_Value_from_Input, 0); 
             transform.rotation = Quaternion_Rotate_To;
+
             //Debug.Log("transform.rotation:  " + transform.rotation);
         }
+        //CalculateCenter();
+       
+        
     }
+
+    /*void CalculateCenter()
+    {
+         
+
+    }*/
+   /* public class Player
+    {
+        public float x { get; set; } 
+        public float z { get; set; }
+    }
+    public void CalculateCenter()
+    {
+        List<Player> playersInGame = new List<Player>();
+        // 
+        playersInGame.Add(new Player { x = gameObject.GetComponentInChildren<Node>().GetGridX(), z = gameObject.GetComponentInChildren<Node>().GetGridZ()});
+        //Debug.Log("GridX :  " + gameObject.GetComponentInChildren<Node>().GetGridX());
+        //Debug.Log("GridZ :  " + gameObject.GetComponentInChildren<Node>().GetGridZ());
+        var totalX = 0f; 
+        var totalZ = 0f;
+        playersInGame.Add(new Player { x = 0, z = 0 });
+        playersInGame.Add(new Player { x = 10, z = 0 });
+        foreach (var player in playersInGame)
+        {
+            totalX += player.x;
+            totalZ += player.z;
+        }
+        var centerX = totalX / playersInGame.Count; 
+        var centerZ = totalZ / playersInGame.Count;
+
+        Debug.Log("centerX : " + centerX); 
+        Debug.Log("centerZ : " + centerZ);
+    }*/
 }
