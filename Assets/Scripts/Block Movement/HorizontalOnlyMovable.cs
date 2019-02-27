@@ -79,6 +79,7 @@ public class HorizontalOnlyMovable : MonoBehaviour
                     if (hit.transform.tag == "HorizontalTouchMove" && hit.transform == transform)
                     {
                         isObjectSelected = true;
+                        Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = true;
                     }
                 }
                 startTime = Time.time;
@@ -93,6 +94,7 @@ public class HorizontalOnlyMovable : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 CheckChangeInTouch(touch);
+                Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = false;
                 deselectObject = true;
             }
 

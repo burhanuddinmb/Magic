@@ -87,6 +87,7 @@ public class VerticalOnlyMovable : MonoBehaviour
                     if (hit.transform.tag == "VerticalMovers" && hit.transform == transform)
                     {
                         isObjectSelected = true;
+                        Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = true;
                     }
                 }
                 startTime = Time.time;
@@ -101,6 +102,7 @@ public class VerticalOnlyMovable : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 CheckChangeInTouch(touch);
+                Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = false;
                 deselectObject = true;
             }
 
