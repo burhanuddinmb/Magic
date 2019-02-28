@@ -53,15 +53,25 @@ public class HorizontalOnlyMovable : MonoBehaviour
         if (Mathf.Abs(transform.localPosition.x - node.gridX) >= 1)
         {
             node.gridX = Mathf.RoundToInt(transform.localPosition.x);
-            foreach (var connectingNode in accessibleNodes.connectingNodes)
+            ReAdjustNodes();
+        }
+    }
+
+    void ReAdjustNodes()
+    {
+        foreach (var connectingNode in accessibleNodes.connectingNodes)
+        {
+            AccessibleNodes accNodes = connectingNode.transform.GetComponent<AccessibleNodes>();
+            for (int i = 0; i < accNodes.connectingNodes.Count; i++)
             {
-                connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
+                accNodes.connectingNodes.Remove(transform.GetComponent<Node>());
             }
-            accessibleNodes.CalculateConnectingNodes();
-            foreach (var connectingNode in accessibleNodes.connectingNodes)
-            {
-                connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
-            }
+        }
+        accessibleNodes.CalculateConnectingNodes();
+
+        foreach (var connectingNode in accessibleNodes.connectingNodes)
+        {
+            connectingNode.transform.GetComponent<AccessibleNodes>().connectingNodes.Add(transform.GetComponent<Node>());
         }
     }
 
