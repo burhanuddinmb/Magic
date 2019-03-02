@@ -40,7 +40,7 @@ public class HorizontalOnlyZMovable : MonoBehaviour
             isTouchActive = false;
 
             futurePosition = transform.localPosition;
-            futurePosition.z = transform.localPosition.z - (deltaTouchSpace.z * Time.deltaTime * movementSpeed);
+            futurePosition.z = transform.localPosition.z - (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
             futurePosition.z = Mathf.Clamp(futurePosition.z, minZ, maxZ);
 
             transform.localPosition = futurePosition;
