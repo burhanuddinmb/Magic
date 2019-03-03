@@ -64,12 +64,17 @@ public class VerticalOnlyMovable : MonoBehaviour
     {
         foreach (var connectingNode in accessibleNodes.connectingNodes)
         {
-            connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
+            AccessibleNodes accNodes = connectingNode.transform.GetComponent<AccessibleNodes>();
+            for (int i = 0; i < accNodes.connectingNodes.Count; i++)
+            {
+                accNodes.connectingNodes.Remove(transform.GetComponent<Node>());
+            }
         }
         accessibleNodes.CalculateConnectingNodes();
+
         foreach (var connectingNode in accessibleNodes.connectingNodes)
         {
-            connectingNode.transform.GetComponent<AccessibleNodes>().CalculateConnectingNodes();
+            connectingNode.transform.GetComponent<AccessibleNodes>().connectingNodes.Add(transform.GetComponent<Node>());
         }
     }
 

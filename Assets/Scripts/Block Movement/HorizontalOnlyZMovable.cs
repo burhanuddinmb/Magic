@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalOnlyMovable : MonoBehaviour
+public class HorizontalOnlyZMovable : MonoBehaviour
 {
     Vector3 futurePosition;
     Node node;
@@ -15,8 +15,8 @@ public class HorizontalOnlyMovable : MonoBehaviour
     bool isObjectSelected;
     bool deselectObject;
 
-    [SerializeField] float maxX;
-    [SerializeField] float minX;
+    [SerializeField] float maxZ;
+    [SerializeField] float minZ;
 
     float startTime;
     float eachFrameTimeVariable;
@@ -40,8 +40,8 @@ public class HorizontalOnlyMovable : MonoBehaviour
             isTouchActive = false;
 
             futurePosition = transform.localPosition;
-            futurePosition.x = transform.localPosition.x - (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
-            futurePosition.x = Mathf.Clamp(futurePosition.x, minX, maxX);
+            futurePosition.z = transform.localPosition.z - (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
+            futurePosition.z = Mathf.Clamp(futurePosition.z, minZ, maxZ);
 
             transform.localPosition = futurePosition;
             isObjectSelected = !deselectObject;
@@ -50,9 +50,9 @@ public class HorizontalOnlyMovable : MonoBehaviour
 
     void CheckForAccessibleNodes()
     {
-        if (Mathf.Abs(transform.localPosition.x - node.gridX) >= 1)
+        if (Mathf.Abs(transform.localPosition.z - node.gridZ) >= 1)
         {
-            node.gridX = Mathf.RoundToInt(transform.localPosition.x);
+            node.gridZ = Mathf.RoundToInt(transform.localPosition.z);
             ReAdjustNodes();
         }
     }
