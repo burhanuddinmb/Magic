@@ -32,7 +32,7 @@ public class VerticalOnlyMovable : MonoBehaviour
         handler = gameObject.AddComponent<UsabilityHandler>();
         node = GetComponent<Node>();
         accessibleNodes = GetComponent<AccessibleNodes>();
-        movementSpeed = 5.0f;
+        movementSpeed = 4.0f;
         deselectObject = true;
     }
 

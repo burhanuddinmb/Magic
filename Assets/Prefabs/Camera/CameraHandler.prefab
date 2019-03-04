@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 0}
-  rotationSpeed: 1
+  rotationSpeed: 20
   zoomSpeed: 1
-  movementSpeed: 5
+  movementSpeed: 1
+  minCameraSize: 15
+  maxCameraSize: 40
   rotationAngles: {x: 0, y: 0, z: 0}
   isAnythingImportantGoingOn: 0
 --- !u!1 &6735303944490355655
@@ -69,17 +71,17 @@ PrefabInstance:
     - target: {fileID: 541375372184660129, guid: 3a77b910762faa7419a4470ebf2a0103,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 541375372184660129, guid: 3a77b910762faa7419a4470ebf2a0103,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 541375372184660129, guid: 3a77b910762faa7419a4470ebf2a0103,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 541375372184660129, guid: 3a77b910762faa7419a4470ebf2a0103,
         type: 3}
@@ -121,31 +123,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 541375372184660129, guid: 3a77b910762faa7419a4470ebf2a0103,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 541375372184660129, guid: 3a77b910762faa7419a4470ebf2a0103,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 541375372184660129, guid: 3a77b910762faa7419a4470ebf2a0103,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 541375372184660128, guid: 3a77b910762faa7419a4470ebf2a0103,
-        type: 3}
-      propertyPath: orthographic size
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 541375372184660128, guid: 3a77b910762faa7419a4470ebf2a0103,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 541375372184660128, guid: 3a77b910762faa7419a4470ebf2a0103,
         type: 3}
       propertyPath: far clip plane
@@ -153,28 +130,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 541375372184660128, guid: 3a77b910762faa7419a4470ebf2a0103,
         type: 3}
-      propertyPath: orthographic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: rink
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: maxZoom
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: minZoom
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 6556046200771138677}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: orthographic size
+      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a77b910762faa7419a4470ebf2a0103, type: 3}
@@ -187,12 +144,6 @@ GameObject:
 --- !u!4 &6556046200771138676 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 541375372184660129, guid: 3a77b910762faa7419a4470ebf2a0103,
-    type: 3}
-  m_PrefabInstance: {fileID: 6735303944550317269}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &6556046200771138677 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 541375372184660128, guid: 3a77b910762faa7419a4470ebf2a0103,
     type: 3}
   m_PrefabInstance: {fileID: 6735303944550317269}
   m_PrefabAsset: {fileID: 0}
