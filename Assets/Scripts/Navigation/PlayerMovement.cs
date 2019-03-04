@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
         timer = 0.0f;
         isMoving = false;
+        pathToDestination = new List<Node>();
         currentNode = GetComponent<SetPlayerStartingGrid>().startingNode.GetComponent<Node>();
         transform.localPosition = currentNode.transform.localPosition;
     }
@@ -63,7 +64,17 @@ public class PlayerMovement : MonoBehaviour
 
                 if (heldDowntimer < 0.3f && destinationNode)
                 {
-                    pathToDestination = AllNodes.AStar(currentNode, destinationNode);
+                    List<Node> tempPath = AllNodes.AStar(currentNode, destinationNode);
+
+                    if (pathToDestination.Count > 0)
+                    {
+                        if (pathToDestination[0] != tempPath[0])
+                        {
+                            tempPath.Insert(0, currentNode);
+                            tempPath.Insert(0, pathToDestination[0]);
+                        }
+                    }
+                    pathToDestination = tempPath;
                     if (pathToDestination.Count > 0)
                     {
                         isMoving = true;
