@@ -31,11 +31,11 @@ public class PlayerMovement : MonoBehaviour
         {
             isMoving = MoveToDestination();
         }
-            if (currentNode.tag == "VerticalMovers" || currentNode.tag == "HorizontalTouchMove")
-            {
+        if (currentNode.tag == "VerticalMovers" || currentNode.tag == "HorizontalTouchMove")
+        {
+            if (!isMoving)
                 transform.localPosition = currentNode.transform.localPosition;
-            }
-                
+        }
     }
 
     void CheckInput()
@@ -86,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         {
             timer = 0.0f;
             transform.localPosition = pathToDestination[0].transform.localPosition;
+            ModificationsForMovingBlocks();
             currentNode = pathToDestination[0];
             pathToDestination.RemoveAt(0);
         }
@@ -97,5 +98,27 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return true;
+    }
+
+    void ModificationsForMovingBlocks()
+    {
+        if (pathToDestination.Count == 1)
+        {
+            if (pathToDestination[0].tag == "VerticalMovers" || pathToDestination[0].tag == "HorizontalTouchMove")
+            {
+                pathToDestination[0].GetComponent<UsabilityHandler>().canMove = true;
+            }
+        }
+        else if (pathToDestination.Count > 1)
+        {
+            if (pathToDestination[0].tag == "VerticalMovers" || pathToDestination[0].tag == "HorizontalTouchMove")
+            {
+                pathToDestination[0].GetComponent<UsabilityHandler>().canMove = true;
+            }
+            if (pathToDestination[1].tag == "VerticalMovers" || pathToDestination[1].tag == "HorizontalTouchMove")
+            {
+                pathToDestination[1].GetComponent<UsabilityHandler>().canMove = false;
+            }
+        }
     }
 }
