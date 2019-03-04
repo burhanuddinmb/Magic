@@ -25,8 +25,11 @@ public class VerticalOnlyMovable : MonoBehaviour
     Node node;
     AccessibleNodes accessibleNodes;
 
+    UsabilityHandler handler;
+
     void Start()
     {
+        handler = gameObject.AddComponent<UsabilityHandler>();
         node = GetComponent<Node>();
         accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 5.0f;
@@ -37,6 +40,8 @@ public class VerticalOnlyMovable : MonoBehaviour
     {
         HandleTouch();
         CheckForAccessibleNodes();
+        if (!handler.canMove)
+            return;
         if (isTouchActive && isObjectSelected)
         {
             isTouchActive = false;
@@ -107,7 +112,8 @@ public class VerticalOnlyMovable : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 CheckChangeInTouch(touch);
-                Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = false;
+                if (isObjectSelected)
+                    Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = false;
                 deselectObject = true;
             }
 

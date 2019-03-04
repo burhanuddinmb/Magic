@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
         timer = 0.0f;
         isMoving = false;
+        pathToDestination = new List<Node>();
         currentNode = GetComponent<SetPlayerStartingGrid>().startingNode.GetComponent<Node>();
         transform.localPosition = currentNode.transform.localPosition;
     }
@@ -31,11 +32,11 @@ public class PlayerMovement : MonoBehaviour
         {
             isMoving = MoveToDestination();
         }
-            if (currentNode.tag == "VerticalMovers" || currentNode.tag == "HorizontalTouchMove")
-            {
+        if (currentNode.tag == "VerticalMovers" || currentNode.tag == "HorizontalTouchMove")
+        {
+            if (!isMoving)
                 transform.localPosition = currentNode.transform.localPosition;
-            }
-                
+        }
     }
 
     void CheckInput()
@@ -63,7 +64,17 @@ public class PlayerMovement : MonoBehaviour
 
                 if (heldDowntimer < 0.3f && destinationNode)
                 {
-                    pathToDestination = AllNodes.AStar(currentNode, destinationNode);
+                    List<Node> tempPath = AllNodes.AStar(currentNode, destinationNode);
+
+                    if (pathToDestination.Count > 0)
+                    {
+                        if (pathToDestination[0] != tempPath[0])
+                        {
+                            tempPath.Insert(0, currentNode);
+                            tempPath.Insert(0, pathToDestination[0]);
+                        }
+                    }
+                    pathToDestination = tempPath;
                     if (pathToDestination.Count > 0)
                     {
                         isMoving = true;
@@ -86,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
         {
             timer = 0.0f;
             transform.localPosition = pathToDestination[0].transform.localPosition;
+            ModificationsForMovingBlocks();
             currentNode = pathToDestination[0];
             pathToDestination.RemoveAt(0);
         }
@@ -97,5 +109,37 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return true;
+    }
+
+    void ModificationsForMovingBlocks()
+    {
+        if (pathToDestination.Count == 1)
+        {
+            if (pathToDestination[0].tag == "VerticalMovers" || pathToDestination[0].tag == "HorizontalTouchMove")
+            {
+                pathToDestination[0].GetComponent<UsabilityHandler>().canMove = true;
+            }
+        }
+        else if (pathToDestination.Count > 1)
+        {
+            if (pathToDestination[0].tag == "VerticalMovers" || pathToDestination[0].tag == "HorizontalTouchMove")
+            {
+                pathToDestination[0].GetComponent<UsabilityHandler>().canMove = true;
+            }
+            if (pathToDestination[1].tag == "VerticalMovers" || pathToDestination[1].tag == "HorizontalTouchMove")
+            {
+                if (pathToDestination[1].transform.GetComponent<AccessibleNodes>().connectingNodes.Contains(pathToDestination[0]))
+                {
+                    pathToDestination[1].GetComponent<UsabilityHandler>().canMove = false;
+                }
+                else
+                {
+                    Node onlyRemainingNode = pathToDestination[0];
+                    pathToDestination.Clear();
+                    pathToDestination.Add(onlyRemainingNode);
+                }
+                
+            }
+        }
     }
 }
