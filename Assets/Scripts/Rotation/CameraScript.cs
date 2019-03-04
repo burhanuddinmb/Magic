@@ -10,6 +10,9 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float zoomSpeed;
     [SerializeField] float movementSpeed;
 
+    [SerializeField] float minCameraSize;
+    [SerializeField] float maxCameraSize;
+
     public Vector3 rotationAngles;
 
     //This should be handled by other scripts
@@ -95,7 +98,7 @@ public class CameraScript : MonoBehaviour
                 camera.orthographicSize += deltaMagnitudeDiff * zoomSpeed;
 
                 // Make sure the orthographic size never drops below zero.
-                camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, 15.0f, 50.0f);
+                camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, minCameraSize, maxCameraSize);
             }
             else
             {
