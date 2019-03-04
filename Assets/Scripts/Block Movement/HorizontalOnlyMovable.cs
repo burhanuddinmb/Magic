@@ -104,7 +104,8 @@ public class HorizontalOnlyMovable : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 CheckChangeInTouch(touch);
-                Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = false;
+                if (isObjectSelected)
+                    Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = false;
                 deselectObject = true;
             }
 

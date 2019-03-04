@@ -128,7 +128,17 @@ public class PlayerMovement : MonoBehaviour
             }
             if (pathToDestination[1].tag == "VerticalMovers" || pathToDestination[1].tag == "HorizontalTouchMove")
             {
-                pathToDestination[1].GetComponent<UsabilityHandler>().canMove = false;
+                if (pathToDestination[1].transform.GetComponent<AccessibleNodes>().connectingNodes.Contains(pathToDestination[0]))
+                {
+                    pathToDestination[1].GetComponent<UsabilityHandler>().canMove = false;
+                }
+                else
+                {
+                    Node onlyRemainingNode = pathToDestination[0];
+                    pathToDestination.Clear();
+                    pathToDestination.Add(onlyRemainingNode);
+                }
+                
             }
         }
     }
