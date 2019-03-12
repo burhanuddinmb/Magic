@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class CameraScript : MonoBehaviour
 {
     [SerializeField] GameObject world;
