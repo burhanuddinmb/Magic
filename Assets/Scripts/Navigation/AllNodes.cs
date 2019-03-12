@@ -30,37 +30,48 @@ public class AllNodes : MonoBehaviour
         return Mathf.Sqrt(x * x + y * y + z * z);
     }
 
-    private bool canClimb(Node start, Node end)
+    static int Partition(List<Node> nodes, int low,
+                               int high)
     {
-        if (start.gridY == end.gridY)
+        Node pivot = nodes[high];
+
+        // index of smaller element 
+        int i = (low - 1);
+        for (int j = low; j < high; j++)
         {
-            return true;
-        }
-        else
-        {
-            foreach (var item in allNodes)
+            // If current element is smaller  
+            // than or equal to pivot 
+            if (nodes[j].fcost <= pivot.fcost)
             {
-                if (item.gridY <= start.gridY)
-                { }
+                i++;
+
+                // swap arr[i] and arr[j] 
+                Node temp = nodes[i];
+                nodes[i] = nodes[j];
+                nodes[j] = temp;
             }
         }
 
-        return true;
+        // swap arr[i+1] and arr[high] (or pivot) 
+        Node temp1 = nodes[i + 1];
+        nodes[i + 1] = nodes[high];
+        nodes[high] = temp1;
+
+        return i + 1;
     }
 
-    public static void Sort(List<Node> node)
+    static void QuickSort(List<Node> nodes, int low, int high)
     {
-        for (int i = 0; i < node.Count - 1; i++)
+        if (low < high)
         {
-            for (int j = 0; j < node.Count - i - 1; j++)
-            {
-                if (node[j].fcost > node[j+1].fcost)
-                {
-                    Node temp = node[j];
-                    node[j] = node[j+1];
-                    node[j+1] = temp;             
-                }
-            }
+            /* pi is partitioning index, arr[pi] is  
+            now at right place */
+            int pi = Partition(nodes, low, high);
+
+            // Recursively sort elements before 
+            // partition and after partition 
+            QuickSort(nodes, low, pi - 1);
+            QuickSort(nodes, pi + 1, high);
         }
     }
 
@@ -71,10 +82,10 @@ public class AllNodes : MonoBehaviour
         HashSet<Node> closedSet = new HashSet<Node>();
         bool wasSuccessful = false;
         openSet.Add(startNode);
-        //TODO sort openSet
+
         while (openSet.Count > 0)
         {
-            Sort(openSet);
+            QuickSort(openSet, 0, openSet.Count - 1);
             Node currentNode = openSet[0];
             openSet.RemoveAt(0);
 
@@ -101,7 +112,6 @@ public class AllNodes : MonoBehaviour
 
                     if (!openSet.Contains(neighbor))
                     {
-                        //TODO Sort
                         openSet.Add(neighbor);
                     }
                 }
