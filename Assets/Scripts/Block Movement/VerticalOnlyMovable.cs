@@ -15,7 +15,7 @@ public class VerticalOnlyMovable : MonoBehaviour
     bool isObjectSelected;
     bool deselectObject;
     [Tooltip("Positive or negative direction depending on the touch. True being moving in world is in positive with the screen space")]
-    [SerializeField] bool polarity;
+    [SerializeField] bool polarity = false;
 
     [SerializeField] float maxY;
     [SerializeField] float minY;
