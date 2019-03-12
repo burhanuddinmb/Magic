@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class HorizontalContinuousMoving : MonoBehaviour
 {
     [SerializeField] float maxX;
@@ -10,7 +11,6 @@ public class HorizontalContinuousMoving : MonoBehaviour
     Vector3 futurePosition;
     Node node;
 
-    UsabilityHandler handler;
     float movementSpeed;
     [SerializeField] float timeToWait;
     float timeTracker;
@@ -21,7 +21,6 @@ public class HorizontalContinuousMoving : MonoBehaviour
 
     void Start()
     {
-        handler = gameObject.AddComponent<UsabilityHandler>();
         node = GetComponent<Node>();
         accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 5.0f;

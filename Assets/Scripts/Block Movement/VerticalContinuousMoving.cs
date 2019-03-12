@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class VerticalContinuousMoving : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-
     [SerializeField] float maxY;
     [SerializeField] float minY;
+
+    Vector3 futurePosition;
+    Node node;
 
     float movementSpeed;
     [SerializeField] float timeToWait;
     float timeTracker;
 
-    bool isPlayerConnected;
     [SerializeField] bool isMovingPositive;
     bool isWaiting;
-
-    Vector3 futurePosition;
+    AccessibleNodes accessibleNodes;
 
     void Start()
     {
+        node = GetComponent<Node>();
+        accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 5.0f;
-        isPlayerConnected = false;
         isWaiting = true;
     }
 
@@ -63,24 +64,33 @@ public class VerticalContinuousMoving : MonoBehaviour
             }
         }
         transform.localPosition = futurePosition;
+        CheckForAccessibleNodes();
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    void CheckForAccessibleNodes()
     {
-        if (other.tag == "Player")
+        if (Mathf.Abs(transform.localPosition.y - node.gridY) >= 1)
         {
-            other.transform.parent = transform;
-            isPlayerConnected = true;
+            node.gridY = Mathf.RoundToInt(transform.localPosition.y);
+            ReAdjustNodes();
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    void ReAdjustNodes()
     {
-        if (other.tag == "Player")
+        foreach (var connectingNode in accessibleNodes.connectingNodes)
         {
-            other.transform.parent = transform.parent;
-            isPlayerConnected = false;
+            AccessibleNodes accNodes = connectingNode.transform.GetComponent<AccessibleNodes>();
+            for (int i = 0; i < accNodes.connectingNodes.Count; i++)
+            {
+                accNodes.connectingNodes.Remove(transform.GetComponent<Node>());
+            }
+        }
+        accessibleNodes.CalculateConnectingNodes();
+
+        foreach (var connectingNode in accessibleNodes.connectingNodes)
+        {
+            connectingNode.transform.GetComponent<AccessibleNodes>().connectingNodes.Add(transform.GetComponent<Node>());
         }
     }
 }

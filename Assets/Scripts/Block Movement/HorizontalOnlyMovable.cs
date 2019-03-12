@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class HorizontalOnlyMovable : MonoBehaviour
 {
     Vector3 futurePosition;
@@ -14,6 +15,8 @@ public class HorizontalOnlyMovable : MonoBehaviour
     bool isTouchActive;
     bool isObjectSelected;
     bool deselectObject;
+    [Tooltip("Positive or negative direction depending on the touch. True being moving in world is in positive with the screen space")]
+    [SerializeField] bool polarity;
 
     [SerializeField] float maxX;
     [SerializeField] float minX;
@@ -22,6 +25,7 @@ public class HorizontalOnlyMovable : MonoBehaviour
     float eachFrameTimeVariable;
 
     float movementSpeed;
+    PlayerMovement player;
 
     void Start()
     {
@@ -29,18 +33,30 @@ public class HorizontalOnlyMovable : MonoBehaviour
         accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 5.0f;
         deselectObject = true;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        if (polarity)
+        {
+            movementSpeed *= -1.0f;
+        }
     }
 
     void Update()
     {
         HandleTouch();
         CheckForAccessibleNodes();
+
+        if (player.isMoving && (node.isOccupied || player.currentNode == node))
+        {
+            //Return as we would not want the player to be able to move critical blocks during gameplay
+            return;
+        }
+
         if (isTouchActive && isObjectSelected)
         {
             isTouchActive = false;
 
             futurePosition = transform.localPosition;
-            futurePosition.x = transform.localPosition.x - (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
+            futurePosition.x = transform.localPosition.x + (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
             futurePosition.x = Mathf.Clamp(futurePosition.x, minX, maxX);
 
             transform.localPosition = futurePosition;

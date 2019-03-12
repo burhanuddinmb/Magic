@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[DisallowMultipleComponent]
 public class AllNodes : MonoBehaviour
 {
     public static Node[] allNodes;
