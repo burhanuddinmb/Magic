@@ -21,6 +21,19 @@ public class Fader : MonoBehaviour
     Image bg;
     float lastTime = 0;
     bool startedLoading = false;
+
+    public static int levelUnlock;
+
+    public string nextLevel;
+    public int levelToUnlock;
+
+    void Start()
+    {
+        //levelUnlock = 0;
+
+        nextLevel = "Level2";
+        levelToUnlock = 2;
+    }
     //Set callback
     void OnEnable()
     {
@@ -95,11 +108,16 @@ public class Fader : MonoBehaviour
             }
             lastTime = Time.time;
             myCanvas.alpha = alpha;
+
+            PlayerPrefs.SetInt("levelReached", levelToUnlock);
             yield return null;
         }
 
-        Initiate.DoneFading();
+        //LevelSelector.unlock = true;
+       // levelUnlock++;
 
+        Initiate.DoneFading();
+        
         Debug.Log("Your scene has been loaded , and fading in has just ended");
 
         Destroy(gameObject);

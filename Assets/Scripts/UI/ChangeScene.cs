@@ -6,8 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
+    private void Start()
+    {
+        //LevelUnlock.unlock = true;
+    }
     public void SceneTransition(string scene)
     {
+        Debug.Log("Button pressed");
         SceneManager.LoadScene(scene);
     }
 
@@ -20,4 +25,12 @@ public class ChangeScene : MonoBehaviour
     {
         Off.SetActive(false);
     }
+
+    public void SceneUnlock(string scene)
+    {
+        //if (LevelSelector.unlock)
+        //{
+        //    SceneManager.LoadScene(scene);
+        //}
+    }   
 }
