@@ -22,11 +22,6 @@ public class LevelSelector : MonoBehaviour
 
     void Update()
     {
-        //if (unlock)
-        //{
-        //    Debug.Log("levelUnlock:     " + Fader.levelUnlock);
-        //    //levels[Fader.levelUnlock - 1].SetActive(false);
-        //    unlock = false;
-        //}
+        
     }
 }

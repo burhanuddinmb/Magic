@@ -24,9 +24,15 @@ public class Fader : MonoBehaviour
 
     public static int levelUnlock;
 
+    public string nextLevel;
+    public int levelToUnlock;
+
     void Start()
     {
         //levelUnlock = 0;
+
+        nextLevel = "Level2";
+        levelToUnlock = 2;
     }
     //Set callback
     void OnEnable()
@@ -102,6 +108,8 @@ public class Fader : MonoBehaviour
             }
             lastTime = Time.time;
             myCanvas.alpha = alpha;
+
+            PlayerPrefs.SetInt("levelReached", levelToUnlock);
             yield return null;
         }
 
