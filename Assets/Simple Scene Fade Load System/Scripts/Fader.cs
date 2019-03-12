@@ -21,6 +21,13 @@ public class Fader : MonoBehaviour
     Image bg;
     float lastTime = 0;
     bool startedLoading = false;
+
+    public static int levelUnlock;
+
+    void Start()
+    {
+        //levelUnlock = 0;
+    }
     //Set callback
     void OnEnable()
     {
@@ -98,8 +105,11 @@ public class Fader : MonoBehaviour
             yield return null;
         }
 
-        Initiate.DoneFading();
+        //LevelSelector.unlock = true;
+       // levelUnlock++;
 
+        Initiate.DoneFading();
+        
         Debug.Log("Your scene has been loaded , and fading in has just ended");
 
         Destroy(gameObject);
