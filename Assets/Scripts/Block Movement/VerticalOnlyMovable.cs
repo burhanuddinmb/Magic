@@ -14,6 +14,8 @@ public class VerticalOnlyMovable : MonoBehaviour
     bool isTouchActive;
     bool isObjectSelected;
     bool deselectObject;
+    [Tooltip("Positive or negative direction depending on the touch. True being moving in world is in positive with the screen space")]
+    [SerializeField] bool polarity;
 
     [SerializeField] float maxY;
     [SerializeField] float minY;
@@ -35,6 +37,10 @@ public class VerticalOnlyMovable : MonoBehaviour
         movementSpeed = 4.0f;
         deselectObject = true;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        if (polarity)
+        {
+            movementSpeed *= -1.0f;
+        }
     }
 
     void Update()
@@ -53,7 +59,7 @@ public class VerticalOnlyMovable : MonoBehaviour
             isTouchActive = false;
 
             futurePosition = transform.localPosition;
-            futurePosition.y = transform.localPosition.y - (deltaTouchSpace.y * Time.deltaTime * movementSpeed);
+            futurePosition.y = transform.localPosition.y + (deltaTouchSpace.y * Time.deltaTime * movementSpeed);
             futurePosition.y = Mathf.Clamp(futurePosition.y, minY, maxY);
 
             transform.localPosition = futurePosition;

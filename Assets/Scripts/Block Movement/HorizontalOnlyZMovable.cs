@@ -15,6 +15,8 @@ public class HorizontalOnlyZMovable : MonoBehaviour
     bool isTouchActive;
     bool isObjectSelected;
     bool deselectObject;
+    [Tooltip("Positive or negative direction depending on the touch. True being moving in world is in positive with the screen space")]
+    [SerializeField] bool polarity;
 
     [SerializeField] float maxZ;
     [SerializeField] float minZ;
@@ -25,6 +27,7 @@ public class HorizontalOnlyZMovable : MonoBehaviour
     float movementSpeed;
     PlayerMovement player;
 
+
     void Start()
     {
         node = GetComponent<Node>();
@@ -32,6 +35,10 @@ public class HorizontalOnlyZMovable : MonoBehaviour
         movementSpeed = 5.0f;
         deselectObject = true;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        if (polarity)
+        {
+            movementSpeed *= -1.0f;
+        }
     }
 
     void Update()
@@ -50,7 +57,7 @@ public class HorizontalOnlyZMovable : MonoBehaviour
             isTouchActive = false;
 
             futurePosition = transform.localPosition;
-            futurePosition.z = transform.localPosition.z - (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
+            futurePosition.z = transform.localPosition.z + (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
             futurePosition.z = Mathf.Clamp(futurePosition.z, minZ, maxZ);
 
             transform.localPosition = futurePosition;

@@ -15,6 +15,8 @@ public class HorizontalOnlyMovable : MonoBehaviour
     bool isTouchActive;
     bool isObjectSelected;
     bool deselectObject;
+    [Tooltip("Positive or negative direction depending on the touch. True being moving in world is in positive with the screen space")]
+    [SerializeField] bool polarity;
 
     [SerializeField] float maxX;
     [SerializeField] float minX;
@@ -32,6 +34,10 @@ public class HorizontalOnlyMovable : MonoBehaviour
         movementSpeed = 5.0f;
         deselectObject = true;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        if (polarity)
+        {
+            movementSpeed *= -1.0f;
+        }
     }
 
     void Update()
