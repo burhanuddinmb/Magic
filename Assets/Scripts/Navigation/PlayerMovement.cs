@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Node currentNode;
     public Node destinationNode;
+
     List<Node> pathToDestination;
 
     [SerializeField] float movementSpeed;
@@ -68,6 +69,28 @@ public class PlayerMovement : MonoBehaviour
                 {
                     List<Node> tempPath = AllNodes.AStar(currentNode, destinationNode);
 
+                    //Edge cases
+                    if (tempPath.Count > 0 && tempPath[0].isOccupied)
+                    {
+                        if (isMoving)
+                        {
+                            //Occupancy set by the player
+                            if (tempPath[0] != pathToDestination[0])
+                            {
+                                Node onlyRemainingNode = pathToDestination[0];
+                                pathToDestination.Clear();
+                                pathToDestination.Add(onlyRemainingNode);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            destinationNode = null;
+                            return;
+                        }
+                    }
+
+                    //If already moving, adjust
                     if (pathToDestination.Count > 0)
                     {
                         if (pathToDestination[0] != tempPath[0])
@@ -76,10 +99,17 @@ public class PlayerMovement : MonoBehaviour
                             tempPath.Insert(0, pathToDestination[0]);
                         }
                     }
+
+                    //Set occupancy
                     pathToDestination = tempPath;
                     if (pathToDestination.Count > 0)
                     {
-                        isMoving = true;
+                        if (!isMoving)
+                        {
+                            currentNode.isOccupied = false;
+                            isMoving = true;
+                        }
+                        pathToDestination[0].isOccupied = true;
                     }
                 }
                 else
@@ -117,7 +147,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (pathToDestination.Count > 1)
         {
-
+            if (pathToDestination[1].isOccupied)
+            {
+                Node onlyRemainingNode = pathToDestination[0];
+                pathToDestination.Clear();
+                pathToDestination.Add(onlyRemainingNode);
+                return;
+            }
             if (!pathToDestination[1].transform.GetComponent<AccessibleNodes>().connectingNodes.Contains(pathToDestination[0]))
             {
                 Node onlyRemainingNode = pathToDestination[0];

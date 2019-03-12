@@ -73,7 +73,6 @@ public class CubeRotation : MonoBehaviour
                 if (timeChange > 0.1f)
                 {
                     isTouchActive = true;
-                    player.GetComponent<PlayerController>().StopPlayer();
                 }
             }
         }
