@@ -37895,6 +37895,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SceneTransition
       objectReference: {fileID: 0}
+    - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LevelSelection
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a821400d10682cf43addf2cae9f04c7a, type: 3}
 --- !u!224 &878823495 stripped
