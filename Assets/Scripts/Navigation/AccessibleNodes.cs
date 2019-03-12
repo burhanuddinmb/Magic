@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class AccessibleNodes : MonoBehaviour
 {
     public List<Node> connectingNodes;

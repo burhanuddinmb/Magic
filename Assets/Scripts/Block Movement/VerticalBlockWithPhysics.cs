@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class VerticalBlockWithPhysics : MonoBehaviour
 {
+    //In works for the future
     Vector3 futurePosition;
     Vector3 frameStartPosition;
     Vector3 forceToBeAdded;

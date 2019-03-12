@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[DisallowMultipleComponent]
 public class Node : MonoBehaviour
 {
     // Node starting params
@@ -18,6 +19,9 @@ public class Node : MonoBehaviour
     public float hCost;
     public Node parentNode;
 
+    //For blocking
+    public bool isOccupied;
+
     private void Start()
     {
         //gridX = (int)(transform.localPosition.x);
@@ -32,6 +36,8 @@ public class Node : MonoBehaviour
         gridZ = (int)(transform.localPosition.z);
 
         gridY = (int)(transform.localPosition.y);
+
+        isOccupied = false;
     }
 
     public float fcost

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class HorizontalOnlyMovable : MonoBehaviour
 {
     Vector3 futurePosition;
@@ -22,6 +23,7 @@ public class HorizontalOnlyMovable : MonoBehaviour
     float eachFrameTimeVariable;
 
     float movementSpeed;
+    PlayerMovement player;
 
     void Start()
     {
@@ -29,18 +31,26 @@ public class HorizontalOnlyMovable : MonoBehaviour
         accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 5.0f;
         deselectObject = true;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
         HandleTouch();
         CheckForAccessibleNodes();
+
+        if (player.isMoving && (node.isOccupied || player.currentNode == node))
+        {
+            //Return as we would not want the player to be able to move critical blocks during gameplay
+            return;
+        }
+
         if (isTouchActive && isObjectSelected)
         {
             isTouchActive = false;
 
             futurePosition = transform.localPosition;
-            futurePosition.x = transform.localPosition.x - (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
+            futurePosition.x = transform.localPosition.x + (deltaTouchSpace.x * Time.deltaTime * movementSpeed);
             futurePosition.x = Mathf.Clamp(futurePosition.x, minX, maxX);
 
             transform.localPosition = futurePosition;

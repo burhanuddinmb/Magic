@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[DisallowMultipleComponent]
 public class VerticalOnlyMovable : MonoBehaviour
 {
     Vector3 futurePosition;
@@ -25,23 +26,28 @@ public class VerticalOnlyMovable : MonoBehaviour
     Node node;
     AccessibleNodes accessibleNodes;
 
-    UsabilityHandler handler;
+    PlayerMovement player;
 
     void Start()
     {
-        handler = gameObject.AddComponent<UsabilityHandler>();
         node = GetComponent<Node>();
         accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 4.0f;
         deselectObject = true;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
         HandleTouch();
         CheckForAccessibleNodes();
-        if (!handler.canMove)
+        
+        if (player.isMoving && (node.isOccupied || player.currentNode == node))
+        {
+            //Return as we would not want the player to be able to move critical blocks during gameplay
             return;
+        }
+
         if (isTouchActive && isObjectSelected)
         {
             isTouchActive = false;

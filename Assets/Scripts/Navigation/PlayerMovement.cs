@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class PlayerMovement : MonoBehaviour
 {
     public bool isMoving;
-    
+
     public Node currentNode;
     public Node destinationNode;
     List<Node> pathToDestination;
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float movementSpeed;
     float timer;
     float heldDowntimer;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
         pathToDestination = new List<Node>();
         currentNode = GetComponent<SetPlayerStartingGrid>().startingNode.GetComponent<Node>();
+        currentNode.isOccupied = true;
         transform.localPosition = currentNode.transform.localPosition;
     }
 
@@ -97,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         {
             timer = 0.0f;
             transform.localPosition = pathToDestination[0].transform.localPosition;
-            ModificationsForMovingBlocks();
+            BlockModifications();
             currentNode = pathToDestination[0];
             pathToDestination.RemoveAt(0);
         }
@@ -111,34 +113,21 @@ public class PlayerMovement : MonoBehaviour
         return true;
     }
 
-    void ModificationsForMovingBlocks()
+    void BlockModifications()
     {
-        if (pathToDestination.Count == 1)
+        if (pathToDestination.Count > 1)
         {
-            if (pathToDestination[0].tag == "VerticalMovers" || pathToDestination[0].tag == "HorizontalTouchMove")
+
+            if (!pathToDestination[1].transform.GetComponent<AccessibleNodes>().connectingNodes.Contains(pathToDestination[0]))
             {
-                pathToDestination[0].GetComponent<UsabilityHandler>().canMove = true;
+                Node onlyRemainingNode = pathToDestination[0];
+                pathToDestination.Clear();
+                pathToDestination.Add(onlyRemainingNode);
             }
-        }
-        else if (pathToDestination.Count > 1)
-        {
-            if (pathToDestination[0].tag == "VerticalMovers" || pathToDestination[0].tag == "HorizontalTouchMove")
+            else
             {
-                pathToDestination[0].GetComponent<UsabilityHandler>().canMove = true;
-            }
-            if (pathToDestination[1].tag == "VerticalMovers" || pathToDestination[1].tag == "HorizontalTouchMove")
-            {
-                if (pathToDestination[1].transform.GetComponent<AccessibleNodes>().connectingNodes.Contains(pathToDestination[0]))
-                {
-                    pathToDestination[1].GetComponent<UsabilityHandler>().canMove = false;
-                }
-                else
-                {
-                    Node onlyRemainingNode = pathToDestination[0];
-                    pathToDestination.Clear();
-                    pathToDestination.Add(onlyRemainingNode);
-                }
-                
+                pathToDestination[0].isOccupied = false;
+                pathToDestination[1].isOccupied = true;
             }
         }
     }
