@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
+    public static bool retryPressed;
+
     private void Start()
     {
         //LevelUnlock.unlock = true;
@@ -32,5 +34,11 @@ public class ChangeScene : MonoBehaviour
         //{
         //    SceneManager.LoadScene(scene);
         //}
-    }   
+    }
+
+    public void RetryLevel(string scene)
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(scene);
+    }
 }
