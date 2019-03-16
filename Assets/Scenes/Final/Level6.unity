@@ -8635,6 +8635,16 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 6556046200771138677, guid: 61ad6b0d241e0294e972250311cd4b60,
+        type: 3}
+      propertyPath: near clip plane
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6556046200771138677, guid: 61ad6b0d241e0294e972250311cd4b60,
+        type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61ad6b0d241e0294e972250311cd4b60, type: 3}
 --- !u!1001 &210969464
@@ -25881,7 +25891,7 @@ PrefabInstance:
     - target: {fileID: 2701263748061565371, guid: 93ec7d8afbd38fd4dab366498818c7e0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2701263748061565375, guid: 93ec7d8afbd38fd4dab366498818c7e0,
         type: 3}
