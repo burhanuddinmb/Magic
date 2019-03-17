@@ -209,7 +209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2701263747811874505}
         m_MethodName: RetryLevel
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -691,7 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9433962, g: 0.89444643, b: 0.89444643, a: 1}
+  m_Color: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -712,19 +712,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 60
---- !u!114 &2701263748987826988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5675979619692658412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04ee6e7d81827c344b69f1eb88f88f83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pausePanel: {fileID: 2701263749473784960}
 --- !u!1 &2701263749116512327
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +868,19 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &2701263748987826988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5675979619692658412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ee6e7d81827c344b69f1eb88f88f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausePanel: {fileID: 2701263749473784960}
 --- !u!1001 &2701263749094781640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -998,11 +998,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7762499819549756449, guid: a821400d10682cf43addf2cae9f04c7a,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 23c5f614baeb9b14790d678d137aede8,
+        type: 3}
     - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 5675979619692658409}
     - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1015,28 +1026,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
         type: 3}
@@ -1050,15 +1046,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 7762499819549756449, guid: a821400d10682cf43addf2cae9f04c7a,
+    - target: {fileID: 7762499819549756454, guid: a821400d10682cf43addf2cae9f04c7a,
         type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 23c5f614baeb9b14790d678d137aede8,
-        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a821400d10682cf43addf2cae9f04c7a, type: 3}
 --- !u!1 &5675979619692658412 stripped
@@ -1073,3 +1073,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2701263749094781640}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5675979619692658409 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7762499819549756449, guid: a821400d10682cf43addf2cae9f04c7a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2701263749094781640}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5675979619692658412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -52,7 +52,7 @@ public class CameraScript : MonoBehaviour
         {
             if (Mathf.Abs(touch.deltaPosition.x) < 2.0f)
                 return;
-            rotationAngles.y -= touch.deltaPosition.y * rotationSpeed * Time.deltaTime * Mathf.PI * 2;
+            rotationAngles.y -= touch.deltaPosition.x * rotationSpeed * Time.deltaTime * Mathf.PI;
         }
     }
 
