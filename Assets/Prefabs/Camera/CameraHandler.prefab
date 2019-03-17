@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 0}
-  rotationSpeed: 12
+  rotationSpeed: 4
   zoomSpeed: 1
   movementSpeed: 1
   minCameraSize: 15
-  maxCameraSize: 40
+  maxCameraSize: 45
   rotationAngles: {x: 0, y: 0, z: 0}
   isAnythingImportantGoingOn: 0
 --- !u!1 &6735303944490355655

@@ -18,9 +18,8 @@ public class DemoScript : MonoBehaviour
     }
     public void GoFade()
     {
-        Initiate.Fade(scene, loadToColor, 1.0f); 
         WinLevel();
-        
+        Initiate.Fade(scene, loadToColor, 1.0f); 
     }
 
     private void Update()
@@ -28,11 +27,19 @@ public class DemoScript : MonoBehaviour
         if (player.currentNode == thisNode)
         {
             GoFade();
-            
         }
     }
     public void WinLevel()
     {
+        if (PlayerPrefs.HasKey("levelReached"))
+        {
+            int level = PlayerPrefs.GetInt("levelReached");
+            if (level > levelToUnlock)
+            {
+                levelToUnlock = level;
+            }
+        }
         PlayerPrefs.SetInt("levelReached", levelToUnlock);
+        PlayerPrefs.Save();
     }
 }

@@ -36,9 +36,9 @@ public class ChangeScene : MonoBehaviour
         //}
     }
 
-    public void RetryLevel(string scene)
+    public void RetryLevel()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
