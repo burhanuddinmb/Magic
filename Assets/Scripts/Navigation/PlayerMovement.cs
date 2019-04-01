@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public bool isMoving;
+    public bool isSelected = true;
 
     public Node currentNode;
     public Node destinationNode;
@@ -30,7 +31,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckInput();
+        if (isSelected)
+        {
+            CheckInput();
+        }
         if (isMoving)
         {
             isMoving = MoveToDestination();

@@ -28,7 +28,7 @@ public class VerticalOnlyMovable : MonoBehaviour
     Node node;
     AccessibleNodes accessibleNodes;
 
-    PlayerMovement player;
+    List<PlayerMovement> players;
 
     void Start()
     {
@@ -36,7 +36,15 @@ public class VerticalOnlyMovable : MonoBehaviour
         accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 4.0f;
         deselectObject = true;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+
+        players = new List<PlayerMovement>();
+        foreach (var item in playerObjects)
+        {
+            players.Add(item.GetComponent<PlayerMovement>());
+        }
+
         if (polarity)
         {
             movementSpeed *= -1.0f;
@@ -47,11 +55,14 @@ public class VerticalOnlyMovable : MonoBehaviour
     {
         HandleTouch();
         CheckForAccessibleNodes();
-        
-        if (player.isMoving && (node.isOccupied || player.currentNode == node))
+
+        foreach (var player in players)
         {
-            //Return as we would not want the player to be able to move critical blocks during gameplay
-            return;
+            if (player.isMoving && (node.isOccupied || player.currentNode == node))
+            {
+                //Return as we would not want the player to be able to move critical blocks during gameplay
+                return;
+            }
         }
 
         if (isTouchActive && isObjectSelected)
@@ -110,33 +121,35 @@ public class VerticalOnlyMovable : MonoBehaviour
                     {
                         isObjectSelected = true;
                         Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = true;
+                        deselectObject = false;
                     }
                 }
                 startTime = Time.time;
                 eachFrameTimeVariable = startTime;
                 initialTouchSpace = touch.position;
-                deselectObject = false;
-            }
-            else if (touch.phase == TouchPhase.Moved)
-            {
-                CheckChangeInTouch(touch);
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                CheckChangeInTouch(touch);
-                if (isObjectSelected)
-                    Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = false;
-                deselectObject = true;
             }
 
-            if (!isTouchActive && isObjectSelected)
+            if (isObjectSelected)
             {
-                float timeChange = Time.time - startTime;
-
-                if (timeChange > 0.1f)
+                if (touch.phase == TouchPhase.Moved)
                 {
-                    isTouchActive = true;
-                    //player.GetComponent<PlayerController>().StopPlayer();
+                    CheckChangeInTouch(touch);
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    CheckChangeInTouch(touch);
+                    Camera.main.GetComponent<CameraScript>().isAnythingImportantGoingOn = false;
+                    deselectObject = true;
+                }
+
+                if (!isTouchActive && isObjectSelected)
+                {
+                    float timeChange = Time.time - startTime;
+
+                    if (timeChange > 0.1f)
+                    {
+                        isTouchActive = true;
+                    }
                 }
             }
         }

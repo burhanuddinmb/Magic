@@ -25,7 +25,7 @@ public class HorizontalOnlyZMovable : MonoBehaviour
     float eachFrameTimeVariable;
 
     float movementSpeed;
-    PlayerMovement player;
+    List<PlayerMovement> players;
 
 
     void Start()
@@ -34,7 +34,15 @@ public class HorizontalOnlyZMovable : MonoBehaviour
         accessibleNodes = GetComponent<AccessibleNodes>();
         movementSpeed = 5.0f;
         deselectObject = true;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+
+        players = new List<PlayerMovement>();
+        foreach (var item in playerObjects)
+        {
+            players.Add(item.GetComponent<PlayerMovement>());
+        }
+
         if (polarity)
         {
             movementSpeed *= -1.0f;
@@ -46,10 +54,13 @@ public class HorizontalOnlyZMovable : MonoBehaviour
         HandleTouch();
         CheckForAccessibleNodes();
 
-        if (player.isMoving && (node.isOccupied || player.currentNode == node))
+        foreach (var player in players)
         {
-            //Return as we would not want the player to be able to move critical blocks during gameplay
-            return;
+            if (player.isMoving && (node.isOccupied || player.currentNode == node))
+            {
+                //Return as we would not want the player to be able to move critical blocks during gameplay
+                return;
+            }
         }
 
         if (isTouchActive && isObjectSelected)
@@ -133,7 +144,6 @@ public class HorizontalOnlyZMovable : MonoBehaviour
                 if (timeChange > 0.1f)
                 {
                     isTouchActive = true;
-                    //player.GetComponent<PlayerController>().StopPlayer();
                 }
             }
         }
