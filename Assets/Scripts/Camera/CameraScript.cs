@@ -64,7 +64,8 @@ public class CameraScript : MonoBehaviour
             if (touch.phase == TouchPhase.Moved)
             {
                 isDragging = true;
-                movePos = - touch.deltaPosition.x;
+                movePos = -touch.deltaPosition.x;
+                movePos *= 1080 / Screen.width;
                 theSpeed = new Vector3(movePos, 0.0f, 0.0F);
                 avgSpeed = Vector3.Lerp(avgSpeed, theSpeed, Time.deltaTime);
             }
@@ -101,8 +102,8 @@ public class CameraScript : MonoBehaviour
             (Mathf.Sign(touchZero.deltaPosition.y) == Mathf.Sign(touchOne.deltaPosition.y) && Mathf.Abs(touchZero.deltaPosition.y) > 4.0f && Mathf.Abs(touchOne.deltaPosition.y) > 4.0f)) //Pan in "Y"
         {
             Vector3 futurePosition = transform.position;
-            futurePosition.x -= (touchZero.deltaPosition.x + touchOne.deltaPosition.x) * (Time.deltaTime * movementSpeed);
-            futurePosition.y -= (touchZero.deltaPosition.y + touchOne.deltaPosition.y) * (Time.deltaTime * movementSpeed);
+            futurePosition.x -= (touchZero.deltaPosition.x + touchOne.deltaPosition.x) * (Time.deltaTime * movementSpeed) * (1080 / Screen.width);
+            futurePosition.y -= (touchZero.deltaPosition.y + touchOne.deltaPosition.y) * (Time.deltaTime * movementSpeed) * (1920 / Screen.height);
             transform.position = futurePosition;
         }
         else //Zoom
@@ -118,7 +119,7 @@ public class CameraScript : MonoBehaviour
                 return;
 
             // Change the orthographic size based on the change in distance between the touches.
-            camera.orthographicSize += deltaMagnitudeDiff * zoomSpeed;
+            camera.orthographicSize += deltaMagnitudeDiff * zoomSpeed * (1920 / Screen.height);
 
             // Make sure the orthographic size never drops below zero.
             camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, minCameraSize, maxCameraSize);
