@@ -153,8 +153,8 @@ public class HorizontalOnlyZMovable : MonoBehaviour
         if (isObjectSelected)
         {
             deltaTouchSpace = initialTouchSpace - touch.position;
-            deltaTouchSpace.x *= 1080 / Screen.width;
-            deltaTouchSpace.y *= 1920 / Screen.height;
+            deltaTouchSpace.x *= 1080.0f / Screen.width;
+            deltaTouchSpace.y *= 1920.0f / Screen.height;
             initialTouchSpace = touch.position;
         }
     }
