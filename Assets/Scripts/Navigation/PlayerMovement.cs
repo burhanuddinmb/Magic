@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isMoving = false;
         timer = 0.0f;
         isMoving = false;
         pathToDestination = new List<Node>();

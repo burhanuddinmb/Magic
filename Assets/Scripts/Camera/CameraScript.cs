@@ -32,6 +32,7 @@ public class CameraScript : MonoBehaviour
     {
         isDragging = false;
         camera = GetComponent<Camera>();
+        camera.orthographic = true;
         isAnythingImportantGoingOn = false;
     }
 
@@ -95,21 +96,15 @@ public class CameraScript : MonoBehaviour
         Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
         Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
-        //Pan in "X"
-        if (Mathf.Sign(touchZero.deltaPosition.x) == Mathf.Sign(touchOne.deltaPosition.x) && Mathf.Abs(touchZero.deltaPosition.x) > 4.0f && Mathf.Abs(touchOne.deltaPosition.x) > 4.0f)
+
+        if ((Mathf.Sign(touchZero.deltaPosition.x) == Mathf.Sign(touchOne.deltaPosition.x) && Mathf.Abs(touchZero.deltaPosition.x) > 4.0f && Mathf.Abs(touchOne.deltaPosition.x) > 4.0f) || //Pan in "X"
+            (Mathf.Sign(touchZero.deltaPosition.y) == Mathf.Sign(touchOne.deltaPosition.y) && Mathf.Abs(touchZero.deltaPosition.y) > 4.0f && Mathf.Abs(touchOne.deltaPosition.y) > 4.0f)) //Pan in "Y"
         {
             Vector3 futurePosition = transform.position;
             futurePosition.x -= (touchZero.deltaPosition.x + touchOne.deltaPosition.x) * (Time.deltaTime * movementSpeed);
-            transform.position = futurePosition;
-        }
-        //Pan in "Y"
-        if (Mathf.Sign(touchZero.deltaPosition.y) == Mathf.Sign(touchOne.deltaPosition.y) && Mathf.Abs(touchZero.deltaPosition.y) > 4.0f && Mathf.Abs(touchOne.deltaPosition.y) > 4.0f)
-        {
-            Vector3 futurePosition = transform.position;
             futurePosition.y -= (touchZero.deltaPosition.y + touchOne.deltaPosition.y) * (Time.deltaTime * movementSpeed);
             transform.position = futurePosition;
         }
-
         else //Zoom
         {
             // Find the magnitude of the vector (the distance) between the touches in each frame.
@@ -127,7 +122,6 @@ public class CameraScript : MonoBehaviour
 
             // Make sure the orthographic size never drops below zero.
             camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, minCameraSize, maxCameraSize);
-
         }
     }
 }

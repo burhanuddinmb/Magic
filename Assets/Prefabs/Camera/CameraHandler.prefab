@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   world: {fileID: 0}
   rotationSpeed: 0.036
-  zoomSpeed: 0.004
-  movementSpeed: 0.2
+  zoomSpeed: 0.006
+  movementSpeed: 0.16
   minCameraSize: 15
   maxCameraSize: 40
   isAnythingImportantGoingOn: 0
@@ -126,11 +126,6 @@ PrefabInstance:
         type: 3}
       propertyPath: far clip plane
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 541375372184660128, guid: 3a77b910762faa7419a4470ebf2a0103,
-        type: 3}
-      propertyPath: orthographic size
-      value: 22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a77b910762faa7419a4470ebf2a0103, type: 3}
