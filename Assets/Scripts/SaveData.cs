@@ -129,4 +129,17 @@ public class SaveData
 
         return levelsUnlocked;
     }
+
+    static void ResetData()
+    {
+        for (int i = 0; i < level.Length; i++)
+        {
+            completionTime[i] = 0;
+            completed[i] = false;
+
+            saveData[i] = level[i] + " " + 0 + " " + completionTime[i];
+        }
+        Debug.Log("Reseting Data");
+        File.WriteAllLines(fileName, saveData);
+    }
 }
