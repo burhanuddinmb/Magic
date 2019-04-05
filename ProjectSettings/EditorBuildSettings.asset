@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Textures/Level1.unity
     guid: 984aa92f04fff48418023938b70b6fd6
   - enabled: 1
-    path: Assets/Scenes/Final/Level2.unity
-    guid: 201fc73fb8453c3469307019b37e8ead
+    path: Assets/Scenes/Textures/Level2.unity
+    guid: 6a1c4057817e7264ba434e1b1fb169e4
   - enabled: 1
     path: Assets/Scenes/Final/Level3.unity
     guid: 767f8e953a18a394ea3940f0eb89fbd8
