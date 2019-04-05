@@ -65,7 +65,7 @@ public class CameraScript : MonoBehaviour
             {
                 isDragging = true;
                 movePos = -touch.deltaPosition.x;
-                movePos *= 1080 / Screen.width;
+                movePos *= (1080.0f / Screen.width);
                 theSpeed = new Vector3(movePos, 0.0f, 0.0F);
                 avgSpeed = Vector3.Lerp(avgSpeed, theSpeed, Time.deltaTime);
             }
@@ -102,8 +102,8 @@ public class CameraScript : MonoBehaviour
             (Mathf.Sign(touchZero.deltaPosition.y) == Mathf.Sign(touchOne.deltaPosition.y) && Mathf.Abs(touchZero.deltaPosition.y) > 4.0f && Mathf.Abs(touchOne.deltaPosition.y) > 4.0f)) //Pan in "Y"
         {
             Vector3 futurePosition = transform.position;
-            futurePosition.x -= (touchZero.deltaPosition.x + touchOne.deltaPosition.x) * (Time.deltaTime * movementSpeed) * (1080 / Screen.width);
-            futurePosition.y -= (touchZero.deltaPosition.y + touchOne.deltaPosition.y) * (Time.deltaTime * movementSpeed) * (1920 / Screen.height);
+            futurePosition.x -= (touchZero.deltaPosition.x + touchOne.deltaPosition.x) * (Time.deltaTime * movementSpeed) * (1080.0f / Screen.width);
+            futurePosition.y -= (touchZero.deltaPosition.y + touchOne.deltaPosition.y) * (Time.deltaTime * movementSpeed) * (1920.0f / Screen.height);
             transform.position = futurePosition;
         }
         else //Zoom

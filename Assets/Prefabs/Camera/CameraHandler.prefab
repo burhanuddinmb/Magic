@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 0}
-  rotationSpeed: 0.018
+  rotationSpeed: 0.025
   zoomSpeed: 0.004
-  movementSpeed: 0.16
+  movementSpeed: 0.2
   minCameraSize: 15
   maxCameraSize: 40
   isAnythingImportantGoingOn: 0
