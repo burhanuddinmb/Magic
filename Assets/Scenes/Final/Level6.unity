@@ -8594,11 +8594,6 @@ PrefabInstance:
       propertyPath: maxCameraSize
       value: 40
       objectReference: {fileID: 0}
-    - target: {fileID: 3820213200669970961, guid: 61ad6b0d241e0294e972250311cd4b60,
-        type: 3}
-      propertyPath: rotationSpeed
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 6556046200771138676, guid: 61ad6b0d241e0294e972250311cd4b60,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -14472,6 +14467,7 @@ MonoBehaviour:
   polarity: 1
   maxY: 12
   minY: 0
+  movementSpeed: 2
 --- !u!1001 &334453417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17837,6 +17833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
+  isSelected: 1
   currentNode: {fileID: 0}
   destinationNode: {fileID: 0}
   movementSpeed: 4
@@ -31198,6 +31195,7 @@ MonoBehaviour:
   polarity: 1
   maxY: 38
   minY: 22
+  movementSpeed: 2
 --- !u!114 &705164817
 MonoBehaviour:
   m_ObjectHideFlags: 0
