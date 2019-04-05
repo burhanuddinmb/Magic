@@ -23,7 +23,7 @@ public class VerticalOnlyMovable : MonoBehaviour
     float startTime;
     float eachFrameTimeVariable;
 
-    float movementSpeed;
+    [SerializeField] float movementSpeed = 2.0f;
 
     Node node;
     AccessibleNodes accessibleNodes;
@@ -34,7 +34,6 @@ public class VerticalOnlyMovable : MonoBehaviour
     {
         node = GetComponent<Node>();
         accessibleNodes = GetComponent<AccessibleNodes>();
-        movementSpeed = 4.0f;
         deselectObject = true;
 
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");

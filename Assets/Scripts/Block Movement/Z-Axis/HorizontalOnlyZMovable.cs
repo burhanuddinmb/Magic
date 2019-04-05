@@ -24,7 +24,7 @@ public class HorizontalOnlyZMovable : MonoBehaviour
     float startTime;
     float eachFrameTimeVariable;
 
-    float movementSpeed;
+    [SerializeField] float movementSpeed = 2.0f;
     List<PlayerMovement> players;
 
 
@@ -32,7 +32,6 @@ public class HorizontalOnlyZMovable : MonoBehaviour
     {
         node = GetComponent<Node>();
         accessibleNodes = GetComponent<AccessibleNodes>();
-        movementSpeed = 5.0f;
         deselectObject = true;
 
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");

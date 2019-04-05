@@ -8,52 +8,85 @@ public class CameraScript : MonoBehaviour
     [SerializeField] GameObject world;
 
     [SerializeField] float rotationSpeed;
+
     [SerializeField] float zoomSpeed;
     [SerializeField] float movementSpeed;
 
     [SerializeField] float minCameraSize;
     [SerializeField] float maxCameraSize;
 
-    public Vector3 rotationAngles;
-
+    float lerpSpeed = 0.2f;
+    float movePos;
+    Vector3 theSpeed;
+    Vector3 avgSpeed;
+    Vector3 targetSpeedX;
+    
     //This should be handled by other scripts
     public bool isAnythingImportantGoingOn;
+    bool isDragging;
+
     Camera camera;
 
     // Start is called before the first frame update
     void Start()
     {
+        isDragging = false;
         camera = GetComponent<Camera>();
-        rotationAngles = world.transform.eulerAngles;
         isAnythingImportantGoingOn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount == 1)
+        if (!isAnythingImportantGoingOn)
         {
-            if (!isAnythingImportantGoingOn)
-            {
-                CheckRotate();
-            }
+            CheckRotate();
         }
-        else if (Input.touchCount == 2)
+
+        if (Input.touchCount == 2)
         {
             CheckPanAndZoom();
         }
-        world.transform.eulerAngles = rotationAngles;
     }
 
     void CheckRotate()
     {
-        Touch touch = Input.touches[0];
-        if (touch.phase == TouchPhase.Moved)
+        if (Input.touchCount == 1)
         {
-            if (Mathf.Abs(touch.deltaPosition.x) < 2.0f)
-                return;
-            rotationAngles.y -= touch.deltaPosition.x * rotationSpeed * Time.deltaTime * Mathf.PI;
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                isDragging = true;
+            }
+
+            if (touch.phase == TouchPhase.Moved)
+            {
+                isDragging = true;
+                movePos = - touch.deltaPosition.x;
+                theSpeed = new Vector3(movePos, 0.0f, 0.0F);
+                avgSpeed = Vector3.Lerp(avgSpeed, theSpeed, Time.deltaTime);
+
+            }
+            if (touch.phase == TouchPhase.Stationary)
+            {
+                isDragging = false;
+                //theSpeed = avgSpeed;
+                float i = Time.deltaTime * lerpSpeed;
+                theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.02f);
+            }
+
         }
+
+        else
+        {
+
+            isDragging = false;
+            float i = Time.deltaTime * lerpSpeed;
+            theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.02f);
+
+        }
+        world.transform.Rotate(world.transform.up * theSpeed.x * rotationSpeed, Space.World);
     }
 
     void CheckPanAndZoom()
@@ -74,12 +107,13 @@ public class CameraScript : MonoBehaviour
             transform.position = futurePosition;
         }
         //Pan in "Y"
-        else if (Mathf.Sign(touchZero.deltaPosition.y) == Mathf.Sign(touchOne.deltaPosition.y) && Mathf.Abs(touchZero.deltaPosition.y) > 4.0f && Mathf.Abs(touchOne.deltaPosition.y) > 4.0f)
+        if (Mathf.Sign(touchZero.deltaPosition.y) == Mathf.Sign(touchOne.deltaPosition.y) && Mathf.Abs(touchZero.deltaPosition.y) > 4.0f && Mathf.Abs(touchOne.deltaPosition.y) > 4.0f)
         {
             Vector3 futurePosition = transform.position;
             futurePosition.y -= (touchZero.deltaPosition.y + touchOne.deltaPosition.y) * (Time.deltaTime * movementSpeed);
             transform.position = futurePosition;
         }
+
         else //Zoom
         {
             // Find the magnitude of the vector (the distance) between the touches in each frame.
@@ -92,23 +126,12 @@ public class CameraScript : MonoBehaviour
             if (Mathf.Abs(deltaMagnitudeDiff) < 2.0f)
                 return;
 
-            // If the camera is orthographic...
-            if (camera.orthographic)
-            {
-                // ... change the orthographic size based on the change in distance between the touches.
-                camera.orthographicSize += deltaMagnitudeDiff * zoomSpeed;
+            // Change the orthographic size based on the change in distance between the touches.
+            camera.orthographicSize += deltaMagnitudeDiff * zoomSpeed;
 
-                // Make sure the orthographic size never drops below zero.
-                camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, minCameraSize, maxCameraSize);
-            }
-            else
-            {
-                // Otherwise change the field of view based on the change in distance between the touches.
-                camera.fieldOfView += deltaMagnitudeDiff * zoomSpeed;
+            // Make sure the orthographic size never drops below zero.
+            camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, minCameraSize, maxCameraSize);
 
-                // Clamp the field of view to make sure it's between 0 and 180.
-                camera.fieldOfView = Mathf.Clamp(camera.fieldOfView, 70.0f, 100.0f);
-            }
         }
     }
 }
