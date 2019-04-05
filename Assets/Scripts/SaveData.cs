@@ -41,7 +41,7 @@ public class SaveData
             else
             {
                 Debug.Log("File exists!");
-                return loadFile();
+                return loadFile(numberOfLevels);
             }
         }
         catch (System.Exception e)
@@ -55,6 +55,7 @@ public class SaveData
     public static void SaveLevelInfo(int lvl, float completeTime)
     {
         completionTime[lvl - 1] = completeTime;
+        completed[lvl - 1] = true;
         saveData[lvl - 1] = level[lvl - 1] + " " + 1 + " " + completionTime[lvl - 1];
         File.WriteAllLines(fileName, saveData);
     }
@@ -66,36 +67,64 @@ public class SaveData
     public float timeScore(int i) { return completionTime[i]; }
 
 
-    public static int loadFile()
+    public static int loadFile(int numberOfLevels)
     {
         Debug.Log("Reading");
-        saveData = File.ReadAllLines(fileName);
+        string[] loadData = File.ReadAllLines(fileName);
+        
 
         int levelsUnlocked = 1;
-        int num = saveData.Length;
+        int num = loadData.Length;
 
+        bool reWrite = false;
+
+        if (loadData.Length != numberOfLevels)
+        {
+            //The total number of levels have changed
+            num = numberOfLevels;
+            reWrite = true;
+        }
+
+        saveData = new string[num];
         level = new int[num];
         completionTime = new float[num];
         completed = new bool[num];
 
         for (int i = 0; i < num; i++)
         {
-            string str = saveData[i];
-            string[] words = str.Split(' ');
-
-            level[i] = int.Parse(words[0]);
-
-            int f = int.Parse(words[1]);
-            if (f == 0)
+            if (i >= loadData.Length)
             {
+                level[i] = i + 1;
+                completionTime[i] = 0;
                 completed[i] = false;
+
+                saveData[i] = level[i] + " " + 0 + " " + completionTime[i];
             }
             else
-            { 
-                completed[i] = true;
-                levelsUnlocked = i + 2;
+            {
+                string str = loadData[i];
+                string[] words = str.Split(' ');
+
+                level[i] = int.Parse(words[0]);
+
+                int f = int.Parse(words[1]);
+                if (f == 0)
+                {
+                    completed[i] = false;
+                }
+                else
+                {
+                    completed[i] = true;
+                    levelsUnlocked = i + 2;
+                }
+                completionTime[i] = (float)float.Parse(words[2]);
+                saveData[i] = level[i] + " " + f + " " + completionTime[i];
             }
-            completionTime[i] = (float)float.Parse(words[2]);
+        }
+
+        if (reWrite)
+        {
+            File.WriteAllLines(fileName, saveData);
         }
 
         return levelsUnlocked;
