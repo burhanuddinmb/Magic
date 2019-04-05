@@ -31,15 +31,6 @@ public class DemoScript : MonoBehaviour
     }
     public void WinLevel()
     {
-        if (PlayerPrefs.HasKey("levelReached"))
-        {
-            int level = PlayerPrefs.GetInt("levelReached");
-            if (level > levelToUnlock)
-            {
-                levelToUnlock = level;
-            }
-        }
-        PlayerPrefs.SetInt("levelReached", levelToUnlock);
-        PlayerPrefs.Save();
+        SaveData.SaveLevelInfo(levelToUnlock - 1, 2.0f);
     }
 }

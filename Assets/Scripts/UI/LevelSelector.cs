@@ -13,8 +13,8 @@ public class LevelSelector : MonoBehaviour
     
     void Start()
     {
-        int levelReached = PlayerPrefs.GetInt("levelReached", 1);
-        //levelReached = 6;
+        int levelReached = SaveData.Setup(levelButtons.Length);
+
         levelButtons[levelReached].GetComponentInChildren<Text>().text = levelReached.ToString();
         for (int i = 1; i < levelButtons.Length; i++)
         {
