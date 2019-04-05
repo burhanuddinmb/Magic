@@ -7,7 +7,7 @@ public class Blocker : MonoBehaviour
     [SerializeField] GameObject startingPoint;
     [SerializeField] GameObject endingPoint;
 
-    List<Node> pathToTake;
+    [SerializeField] List<Node> pathToTake;
 
     float timer;
     [SerializeField] float movementSpeed = 2.0f;
@@ -18,6 +18,8 @@ public class Blocker : MonoBehaviour
 
     bool isMoving;
 
+    [SerializeField] bool setCustomPath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,11 @@ public class Blocker : MonoBehaviour
         nextIndex = 1;
         isMoving = true;
         timer = 0.0f;
-        pathToTake = AllNodes.AStar(startingPoint.GetComponent<Node>(), endingPoint.GetComponent<Node>());
+
+        if (!setCustomPath)
+        {
+            pathToTake = AllNodes.AStar(startingPoint.GetComponent<Node>(), endingPoint.GetComponent<Node>());
+        }
         pathToTake[nextIndex].isOccupied = true;
     }
 
