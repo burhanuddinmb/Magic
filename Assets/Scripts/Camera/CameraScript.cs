@@ -66,7 +66,6 @@ public class CameraScript : MonoBehaviour
                 movePos = - touch.deltaPosition.x;
                 theSpeed = new Vector3(movePos, 0.0f, 0.0F);
                 avgSpeed = Vector3.Lerp(avgSpeed, theSpeed, Time.deltaTime);
-
             }
             if (touch.phase == TouchPhase.Stationary)
             {
@@ -75,16 +74,13 @@ public class CameraScript : MonoBehaviour
                 float i = Time.deltaTime * lerpSpeed;
                 theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.02f);
             }
-
         }
 
         else
         {
-
             isDragging = false;
             float i = Time.deltaTime * lerpSpeed;
             theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.02f);
-
         }
         world.transform.Rotate(world.transform.up * theSpeed.x * rotationSpeed, Space.World);
     }
