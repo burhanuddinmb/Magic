@@ -41228,6 +41228,11 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.16273583
       objectReference: {fileID: 0}
+    - target: {fileID: 2701263748778995274, guid: 93ec7d8afbd38fd4dab366498818c7e0,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MainMenu
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93ec7d8afbd38fd4dab366498818c7e0, type: 3}
 --- !u!1 &875943710
