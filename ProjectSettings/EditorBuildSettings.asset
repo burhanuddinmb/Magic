@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Final/MainMenu.unity
-    guid: 36532fac74e610849a4fd32d1eeb9377
+    path: Assets/Scenes/Textures/MainMenu.unity
+    guid: f922907742b422d4a950c903da326e6d
   - enabled: 1
-    path: Assets/Scenes/Final/LevelSelection.unity
+    path: Assets/Scenes/Textures/LevelSelection.unity
     guid: 9e268d1661275eb498ec14bad9a979bf
   - enabled: 1
     path: Assets/Scenes/Textures/Level1.unity
@@ -22,17 +22,17 @@ EditorBuildSettings:
     guid: ada19383539dc23468daf5aba040bd29
   - enabled: 1
     path: Assets/Scenes/Textures/Level4.unity
+    guid: 2abe8a2d9f57a11409e4043f36397615
+  - enabled: 1
+    path: Assets/Scenes/Textures/Level5.unity
     guid: a9e9a5577aabbf5448d53e9c94fd4cd3
   - enabled: 1
-    path: Assets/Scenes/Final/Level5.unity
-    guid: d8a826cf5d12bb1408543ede40c1c060
+    path: Assets/Scenes/Textures/Level6.unity
+    guid: 9167eaebc16231d488cc3025942ac5e0
   - enabled: 1
-    path: Assets/Scenes/Final/Level6.unity
-    guid: f8afa7f998413ab4faf58026a3fb71fc
+    path: Assets/Scenes/Textures/Level7.unity
+    guid: 9f0dda788989b5246859e30ea627e8b7
   - enabled: 1
-    path: Assets/Scenes/Final/Level7.unity
-    guid: 18951eee2af5aa54385ae0b8744e5cb1
-  - enabled: 1
-    path: Assets/Scenes/Final/Level8.unity
-    guid: da4c6a6f630a0e14786c22f2cc1cfe24
+    path: Assets/Scenes/Textures/Level8.unity
+    guid: f451b292b64762b47a2d6f6ca8946e03
   m_configObjects: {}

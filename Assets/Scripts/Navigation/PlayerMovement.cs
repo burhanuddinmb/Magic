@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (hit.transform.tag == "Nodes" || hit.transform.tag == "HorizontalTouchMove" || hit.transform.tag == "VerticalMovers")
                     {
+                        //transform.GetChild(0).GetComponent<Highlight>().isVisible = false;
                         destinationNode = hit.transform.GetComponent<Node>();
                     }
                 }
