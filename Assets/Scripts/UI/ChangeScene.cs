@@ -15,6 +15,7 @@ public class ChangeScene : MonoBehaviour
     public void SceneTransition(string scene)
     {
         Debug.Log("Button pressed");
+        Time.timeScale = 1;
         SceneManager.LoadScene(scene);
     }
 
