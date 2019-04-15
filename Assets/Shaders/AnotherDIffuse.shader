@@ -4,7 +4,7 @@ Shader "Outlined/Diffuse" {
 	Properties{
 		_Color("Main Color", Color) = (.5,.5,.5,1)
 		_OutlineColor("Outline Color", Color) = (0,0,0,1)
-		_Outline("Outline width", Range(.002, 1.0)) = .005
+		_Outline("Outline width", Range(.002, 1.0)) = .05
 		_MainTex("Base (RGB)", 2D) = "white" { }
 	}
 
@@ -61,6 +61,7 @@ ENDCG
 Pass {
 	Name "OUTLINE"
 	Tags { "LightMode" = "Always" }
+	
 	Cull Front
 	ZWrite On
 	ColorMask RGB
@@ -97,6 +98,7 @@ Pass {
 				Name "OUTLINE"
 				Tags { "LightMode" = "Always" }
 				Cull Front
+		ZTest Greater
 				ZWrite Off
 				ColorMask RGB
 				Blend SrcAlpha OneMinusSrcAlpha
