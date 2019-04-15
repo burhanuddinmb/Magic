@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
                 if (heldDowntimer < 0.3f && destinationNode)
                 {
+                    TouchDecal.AddTouchAnimation(destinationNode.transform);
                     List<Node> tempPath = AllNodes.AStar(currentNode, destinationNode);
 
                     //Edge cases
