@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameTimer : MonoBehaviour
 {
     private Image fillImg;
-    public static float timeAmt = 60;
+    public static float timeAmt = 120;
     private float time;
     public Text timeText;
     public GameObject timer;
@@ -15,26 +15,14 @@ public class GameTimer : MonoBehaviour
     void Start()
     {
         fillImg = this.GetComponent<Image>();
-        time = timeAmt;
+        time = 0.0f;
     }
     void Update()
     {
-        if (time > 0)
-        {
-            
-            time -= Time.deltaTime;
+        time += Time.deltaTime;
 
-            
-            fillImg.fillAmount = time / timeAmt;
-            timeText.text = Mathf.Round(time).ToString();
 
-            Debug.Log("Time.deltaTime:  " + Time.timeScale);
-        }
-        if (time < 0)
-        {
-            timer.SetActive(false);
-        }
+        fillImg.fillAmount = time / timeAmt;
+        timeText.text = Mathf.Round(time).ToString();
     }
-
-   
 }
