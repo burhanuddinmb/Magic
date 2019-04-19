@@ -59,6 +59,7 @@ public class CameraScript : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 isDragging = true;
+                theSpeed = Vector3.zero;
             }
 
             if (touch.phase == TouchPhase.Moved)
@@ -82,7 +83,7 @@ public class CameraScript : MonoBehaviour
         {
             isDragging = false;
             float i = Time.deltaTime * lerpSpeed;
-            theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.02f);
+            theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.05f);
         }
         world.transform.Rotate(world.transform.up * theSpeed.x * rotationSpeed, Space.World);
     }
