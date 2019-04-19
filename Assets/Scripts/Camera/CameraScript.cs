@@ -17,6 +17,7 @@ public class CameraScript : MonoBehaviour
 
     float lerpSpeed = 0.2f;
     float movePos;
+    float timer;
     Vector3 theSpeed;
     Vector3 avgSpeed;
     Vector3 targetSpeedX;
@@ -55,27 +56,34 @@ public class CameraScript : MonoBehaviour
         if (Input.touchCount == 1)
         {
             Touch touch = Input.GetTouch(0);
-
+            
             if (touch.phase == TouchPhase.Began)
             {
                 isDragging = true;
                 theSpeed = Vector3.zero;
             }
 
-            if (touch.phase == TouchPhase.Moved)
+            if (timer > 0.16f)
             {
-                isDragging = true;
-                movePos = -touch.deltaPosition.x;
-                movePos *= (1080.0f / Screen.width);
-                theSpeed = new Vector3(movePos, 0.0f, 0.0F);
-                avgSpeed = Vector3.Lerp(avgSpeed, theSpeed, Time.deltaTime);
+                if (touch.phase == TouchPhase.Moved)
+                {
+                    isDragging = true;
+                    movePos = -touch.deltaPosition.x;
+                    movePos *= (1080.0f / Screen.width);
+                    theSpeed = new Vector3(movePos, 0.0f, 0.0F);
+                    avgSpeed = Vector3.Lerp(avgSpeed, theSpeed, Time.deltaTime);
+                }
+                if (touch.phase == TouchPhase.Stationary)
+                {
+                    isDragging = false;
+                    //theSpeed = avgSpeed;
+                    float i = Time.deltaTime * lerpSpeed;
+                    theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.02f);
+                }
             }
-            if (touch.phase == TouchPhase.Stationary)
+            else
             {
-                isDragging = false;
-                //theSpeed = avgSpeed;
-                float i = Time.deltaTime * lerpSpeed;
-                theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.02f);
+                timer += Time.deltaTime;
             }
         }
 
@@ -84,6 +92,7 @@ public class CameraScript : MonoBehaviour
             isDragging = false;
             float i = Time.deltaTime * lerpSpeed;
             theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.05f);
+            timer = 0.0f;
         }
         world.transform.Rotate(world.transform.up * theSpeed.x * rotationSpeed, Space.World);
     }
