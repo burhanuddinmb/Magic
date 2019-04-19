@@ -15894,6 +15894,11 @@ PrefabInstance:
       propertyPath: world
       value: 
       objectReference: {fileID: 1087954042}
+    - target: {fileID: 3820213200669970961, guid: 61ad6b0d241e0294e972250311cd4b60,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6556046200771138676, guid: 61ad6b0d241e0294e972250311cd4b60,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -26068,8 +26073,8 @@ Transform:
   - {fileID: 549635807}
   - {fileID: 44646041}
   - {fileID: 656689146}
-  - {fileID: 887731142}
   - {fileID: 2089532965}
+  - {fileID: 887731142}
   - {fileID: 681188708}
   - {fileID: 1438508054}
   - {fileID: 1272369401}
@@ -50142,7 +50147,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1087954043}
-  m_RootOrder: 99
+  m_RootOrder: 98
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2089532966
 BoxCollider:

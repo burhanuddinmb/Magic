@@ -63,8 +63,8 @@ public class CameraScript : MonoBehaviour
                 theSpeed = Vector3.zero;
             }
 
-            if (timer > 0.16f)
-            {
+            //if (timer > 0.16f)
+            //{
                 if (touch.phase == TouchPhase.Moved)
                 {
                     isDragging = true;
@@ -80,11 +80,11 @@ public class CameraScript : MonoBehaviour
                     float i = Time.deltaTime * lerpSpeed;
                     theSpeed = Vector3.Lerp(theSpeed, Vector3.zero, 0.02f);
                 }
-            }
-            else
-            {
-                timer += Time.deltaTime;
-            }
+            //}
+            //else
+            //{
+            //    timer += Time.deltaTime;
+            //}
         }
 
         else
